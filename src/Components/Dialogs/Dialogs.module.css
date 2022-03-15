@@ -1,0 +1,12 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 3fr 10fr;
+}
+
+.listDialogs {
+ padding: 15px;
+}
+
+.listMessages {
+ padding: 15px;
+}
