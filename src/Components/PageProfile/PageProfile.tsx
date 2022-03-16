@@ -2,7 +2,8 @@ import React from 'react';
 import s from './PageProfile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {PostsDataPropsType} from "../../index";
+import {PostsDataPropsType} from "../../redux/state";
+
 
 type PageProfilePropsType = {
     postsData: PostsDataPropsType[]

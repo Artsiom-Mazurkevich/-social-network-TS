@@ -9,7 +9,8 @@ import { Route, Routes } from "react-router-dom";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
-import {DialogsData, DialogsDataPropsType, MessagesData, MessagesDataPropsType, PostsDataPropsType} from "./index";
+import {DialogsDataPropsType, MessagesDataPropsType, PostsDataPropsType} from "./redux/state";
+
 
 
 type AppPropsType = {
