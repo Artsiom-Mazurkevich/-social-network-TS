@@ -1,8 +1,17 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {PostsDataPropsType} from "../../../index";
 
-const MyPosts = () => {
+
+type MyPostsPropsType = {
+    postsData: PostsDataPropsType[]
+}
+
+const MyPosts = (props: MyPostsPropsType) => {
+
+    let PostsElements = props.postsData.map(p => <Post message={p.message} likeCounts={p.likesCount}/>);
+
     return (
             <div>
                 My posts
@@ -11,8 +20,7 @@ const MyPosts = () => {
                     <button>Add post</button>
                 </div>
                 <div className={'posts'}>
-                    <Post message={'Hi, how are you?'} likeCounts={20}/>
-                    <Post message={"It's my first post"} likeCounts={15}/>
+                    {PostsElements}
                 </div>
             </div>
     );

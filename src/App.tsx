@@ -9,17 +9,24 @@ import { Route, Routes } from "react-router-dom";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
+import {DialogsData, DialogsDataPropsType, MessagesData, MessagesDataPropsType, PostsDataPropsType} from "./index";
 
 
-function App() {
+type AppPropsType = {
+    dialogsData: DialogsDataPropsType[]
+    messagesData: MessagesDataPropsType[]
+    postsData: PostsDataPropsType[]
+}
+
+function App(props: AppPropsType) {
   return (
       <div className={'app-wrapper'}>
         <Header/>
         <Nav/>
         <div className={'app-wrapper-content'}>
             <Routes>
-            <Route path={'/dialogs/*'} element={<Dialogs />}/>
-            <Route path={'/profile'} element={<PageProfile />}/>
+            <Route path={'/dialogs/*'} element={<Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>}/>
+            <Route path={'/profile'} element={<PageProfile postsData={props.postsData}/>}/>
             <Route path={'/news'} element={<News />}/>
             <Route path={'/music'} element={<Music />}/>
             <Route path={'/settings'} element={<Settings />}/>
