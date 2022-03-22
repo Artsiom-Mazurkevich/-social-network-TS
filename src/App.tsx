@@ -23,16 +23,19 @@ function App(props: AppPropsType) {
   return (
       <div className={'app-wrapper'}>
         <Header/>
-        <Nav/>
-        <div className={'app-wrapper-content'}>
-            <Routes>
-            <Route path={'/dialogs/*'} element={<Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>}/>
-            <Route path={'/profile'} element={<PageProfile postsData={props.postsData}/>}/>
-            <Route path={'/news'} element={<News />}/>
-            <Route path={'/music'} element={<Music />}/>
-            <Route path={'/settings'} element={<Settings />}/>
-            </Routes>
-        </div>
+          <div className={'app-wrapper-content'}>
+              <Nav/>
+              <div className={'profile'}>
+                  <Routes>
+                      <Route path={'/dialogs/*'}
+                             element={<Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>}/>
+                      <Route path={'/profile'} element={<PageProfile postsData={props.postsData}/>}/>
+                      <Route path={'/news'} element={<News/>}/>
+                      <Route path={'/music'} element={<Music/>}/>
+                      <Route path={'/settings'} element={<Settings/>}/>
+                  </Routes>
+              </div>
+          </div>
       </div>
   );
 }

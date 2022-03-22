@@ -1,22 +1,33 @@
-.app-wrapper {
-  display: grid;
-  margin: 0 auto;
-  width: 1200px;
-  grid-template-areas:
-    'h h'
-    'n c';
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
-  grid-gap: 10px;
-
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
+
+.app-wrapper {
+  display: flex;
+  width: 1200px;
+  flex-direction: column;
+  margin: 0 auto;
+}
 
 .app-wrapper-content {
-  grid-area: c;
-  background-color: powderblue;
-  border-radius: 5px;
-  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  width: 1200px;
+
 }
+
+.profile {
+  margin: 0 auto;
+  width: 75%;
+  background-color: white;
+  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+}
+
 
 
