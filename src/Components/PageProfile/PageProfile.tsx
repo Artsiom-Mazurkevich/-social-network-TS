@@ -7,13 +7,14 @@ import {PostsDataPropsType} from "../../redux/state";
 
 type PageProfilePropsType = {
     postsData: PostsDataPropsType[]
+    addPost: (postMessage: string) => void
 }
 
 const PageProfile = (props: PageProfilePropsType) => {
     return (
         <div className={s.profile}>
             <ProfileInfo/>
-            <MyPosts postsData={props.postsData}/>
+            <MyPosts postsData={props.postsData} addPost={props.addPost}/>
         </div>
     );
 };

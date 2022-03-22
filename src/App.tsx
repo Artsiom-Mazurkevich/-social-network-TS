@@ -17,6 +17,7 @@ type AppPropsType = {
     dialogsData: DialogsDataPropsType[]
     messagesData: MessagesDataPropsType[]
     postsData: PostsDataPropsType[]
+    addPost: (postMessage: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -29,7 +30,7 @@ function App(props: AppPropsType) {
                   <Routes>
                       <Route path={'/dialogs/*'}
                              element={<Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>}/>
-                      <Route path={'/profile'} element={<PageProfile postsData={props.postsData}/>}/>
+                      <Route path={'/profile'} element={<PageProfile postsData={props.postsData} addPost={props.addPost}/>}/>
                       <Route path={'/news'} element={<News/>}/>
                       <Route path={'/music'} element={<Music/>}/>
                       <Route path={'/settings'} element={<Settings/>}/>
