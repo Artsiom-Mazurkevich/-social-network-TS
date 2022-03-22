@@ -1,5 +1,4 @@
-
-
+import {rerenderEntireTree} from "../render";
 
 
 export type DialogsDataPropsType = {
@@ -22,7 +21,7 @@ let state = {
     profilePage: {posts: [
             {id: 1, message: 'Hi, how are you?', likesCount: 20},
             {id: 2, message: "It's my first post", likesCount: 20},
-        ],
+        ], newPostText: 'IT-KAMASUTRA',
         dialogs: [
             {id: 1, name: 'Artem'},
             {id: 2, name: 'Dima'},
@@ -31,17 +30,25 @@ let state = {
         ],},
 
     messagesPage: {messages:[
-        {id: 1, message: 'hi'},
-        {id: 2, message: 'yo'},
-        {id: 3, message: 'hello world'},
-        {id: 4, message: 'hello world'},
-    ]}
+            {id: 1, message: 'hi'},
+            {id: 2, message: 'yo'},
+            {id: 3, message: 'hello world'},
+            {id: 4, message: 'hello world'},
+        ]}
 };
 
 
 export const addPost = (postMessage: string) => {
-    let newPost = {id: 5, message: postMessage, likesCount: 0}
+    let newPost = {id: 5, message: state.profilePage.newPostText, likesCount: 0}
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = ''
+    rerenderEntireTree()
+};
+
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
+    rerenderEntireTree()
 }
 
 export default state;

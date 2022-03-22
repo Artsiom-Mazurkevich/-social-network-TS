@@ -9,7 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
-import {DialogsDataPropsType, MessagesDataPropsType, PostsDataPropsType} from "./redux/state";
+import {DialogsDataPropsType, MessagesDataPropsType, PostsDataPropsType, updateNewPostText} from "./redux/state";
 
 
 
@@ -18,6 +18,8 @@ type AppPropsType = {
     messagesData: MessagesDataPropsType[]
     postsData: PostsDataPropsType[]
     addPost: (postMessage: string) => void
+    newPostText: string
+    updateNewPostText: (newText: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -30,7 +32,11 @@ function App(props: AppPropsType) {
                   <Routes>
                       <Route path={'/dialogs/*'}
                              element={<Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>}/>
-                      <Route path={'/profile'} element={<PageProfile postsData={props.postsData} addPost={props.addPost}/>}/>
+                      <Route path={'/profile'} element={<PageProfile postsData={props.postsData}
+                                                                     addPost={props.addPost}
+                                                                     newPostText={props.newPostText}
+                                                                     updateNewPostText={props.updateNewPostText}
+                      />}/>
                       <Route path={'/news'} element={<News/>}/>
                       <Route path={'/music'} element={<Music/>}/>
                       <Route path={'/settings'} element={<Settings/>}/>
