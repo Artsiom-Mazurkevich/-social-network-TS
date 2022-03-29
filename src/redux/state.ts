@@ -1,5 +1,7 @@
-import {rerenderEntireTree} from "../render";
 
+let rerenderEntireTree = () => {
+    console.log('state was changed')
+}
 
 export type DialogsDataPropsType = {
     id: number
@@ -49,6 +51,8 @@ export const addPost = (postMessage: string) => {
 export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
     rerenderEntireTree()
-}
+};
+
+export const subscribe =  (observer: any) => {rerenderEntireTree = observer};
 
 export default state;

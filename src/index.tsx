@@ -3,14 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import state, {addPost} from "./redux/state";
-import {rerenderEntireTree} from "./render";
+import state, {addPost, subscribe, updateNewPostText} from "./redux/state";
 
 
-rerenderEntireTree()
-
-
-/*export const rerenderEntireTree = () => {
+const rerenderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
@@ -19,6 +15,8 @@ rerenderEntireTree()
                     dialogsData={state.profilePage.dialogs}
                     postsData={state.profilePage.posts}
                     addPost={addPost}
+                    newPostText={state.profilePage.newPostText}
+                    updateNewPostText={updateNewPostText}
                 />
             </BrowserRouter>
         </React.StrictMode>,
@@ -26,8 +24,6 @@ rerenderEntireTree()
     );
 };
 
-rerenderEntireTree()*/
 
-
-
-
+rerenderEntireTree();
+subscribe(rerenderEntireTree);
