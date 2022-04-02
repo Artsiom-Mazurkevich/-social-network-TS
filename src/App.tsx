@@ -9,20 +9,33 @@ import { Route, Routes } from "react-router-dom";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
-import {DialogsDataPropsType, MessagesDataPropsType, PostsDataPropsType, updateNewPostText} from "./redux/state";
+import {dialogsDataType, messagesType, postsDataType, store} from "./redux/state";
+// import {DialogsDataPropsType, MessagesDataPropsType, PostsDataPropsType, updateNewPostText} from "./redux/state";
 
 
 
-type AppPropsType = {
+/*type AppPropsType = {
     dialogsData: DialogsDataPropsType[]
     messagesData: MessagesDataPropsType[]
     postsData: PostsDataPropsType[]
     addPost: (postMessage: string) => void
     newPostText: string
     updateNewPostText: (newText: string) => void
+}*/
+
+
+type appType = {
+    messagesData: messagesType[]
+    dialogsData: dialogsDataType[]
+    postsData: postsDataType[]
+    addPost: (postMessage: string) => void
+    newPostText: string
+    updateNewPostText: (newText: string) => void
 }
 
-function App(props: AppPropsType) {
+
+
+function App(props: appType) {
   return (
       <div className={'app-wrapper'}>
         <Header/>

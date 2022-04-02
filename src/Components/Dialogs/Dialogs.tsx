@@ -3,16 +3,17 @@ import s from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {DialogsDataPropsType, MessagesDataPropsType} from "../../redux/state";
+import {dialogsDataType, messagesType} from "../../redux/state";
+// import {DialogsDataPropsType, MessagesDataPropsType} from "../../redux/state";
 
 
 
-type DialogsPropsType = {
-    dialogsData: DialogsDataPropsType[]
-    messagesData: MessagesDataPropsType[]
+type dialogsType = {
+    dialogsData: dialogsDataType[]
+    messagesData: messagesType[]
 }
 
-const Dialogs = (props: DialogsPropsType) => {
+const Dialogs = (props: dialogsType) => {
 
 
     let Dialogs = props.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);

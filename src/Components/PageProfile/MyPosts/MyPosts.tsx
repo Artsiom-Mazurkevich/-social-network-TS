@@ -1,18 +1,19 @@
 import React, {LegacyRef} from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {PostsDataPropsType} from "../../../redux/state";
+import {postsDataType, store} from "../../../redux/state";
+// import {PostsDataPropsType} from "../../../redux/state";
 
 
 
-type MyPostsPropsType = {
-    postsData: PostsDataPropsType[]
+type myPostsPropsType = {
+    postsData: postsDataType[]
     addPost: (postMessage: string) => void
     newPostText: string
     updateNewPostText: (newText: string) => void
 }
 
-const MyPosts = (props: MyPostsPropsType) => {
+const MyPosts = (props: myPostsPropsType) => {
 
     let PostsElements = props.postsData.map(p => <Post message={p.message} likeCounts={p.likesCount}/>);
 
