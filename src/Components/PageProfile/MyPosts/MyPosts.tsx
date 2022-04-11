@@ -1,31 +1,29 @@
-import React, {LegacyRef} from 'react';
-import s from './MyPosts.module.css';
+import React from 'react';
 import Post from "./Post/Post";
-import {postsDataType, store} from "../../../redux/state";
-// import {PostsDataPropsType} from "../../../redux/state";
+import {addPostActionType, postsDataType,updateNewPostTextActionType} from "../../../redux/state";
+
 
 
 
 type myPostsPropsType = {
-    postsData: postsDataType[]
-    addPost: (postMessage: string) => void
+    posts: Array<postsDataType>
     newPostText: string
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: addPostActionType | updateNewPostTextActionType) => void
 }
 
 const MyPosts = (props: myPostsPropsType) => {
 
-    let PostsElements = props.postsData.map(p => <Post message={p.message} likeCounts={p.likesCount}/>);
+    let PostsElements = props.posts.map(p => <Post message={p.message} likeCounts={p.likesCount}/>);
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
+    let newPostElement= React.createRef<HTMLTextAreaElement>()
     
     const addPost = () => {
-        props.addPost('');
+        props.dispatch({type: 'addPost', postMessage: props.newPostText})
     }
     
     const onPostChange = () => {
         let text: string = newPostElement.current?.value!;
-        props.updateNewPostText(text)
+        props.dispatch({type: 'updateNewPostText', newText: text})
     }
 
     return (
