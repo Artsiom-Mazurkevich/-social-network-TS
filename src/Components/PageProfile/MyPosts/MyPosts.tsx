@@ -1,6 +1,12 @@
 import React from 'react';
 import Post from "./Post/Post";
-import {addPostActionType, postsDataType,updateNewPostTextActionType} from "../../../redux/state";
+import {
+    addPostAC,
+    addPostActionType,
+    postsDataType,
+    updateNewPostTextAC,
+    updateNewPostTextActionType
+} from "../../../redux/state";
 
 
 
@@ -18,12 +24,12 @@ const MyPosts = (props: myPostsPropsType) => {
     let newPostElement= React.createRef<HTMLTextAreaElement>()
     
     const addPost = () => {
-        props.dispatch({type: 'addPost', postMessage: props.newPostText})
+        props.dispatch(addPostAC(props.newPostText))
     }
     
     const onPostChange = () => {
         let text: string = newPostElement.current?.value!;
-        props.dispatch({type: 'updateNewPostText', newText: text})
+        props.dispatch(updateNewPostTextAC(text))
     }
 
     return (

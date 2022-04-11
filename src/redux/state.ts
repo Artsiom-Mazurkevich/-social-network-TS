@@ -23,10 +23,7 @@ export let store:storeType = {
     getState() {
         return this._state
     },
-
     subscribe (observer: any)  {this._rerenderEntireTree = observer},
-
-
     getMessages () {
         return this._state.messagesPage.messages
     },
@@ -52,7 +49,6 @@ export let store:storeType = {
         this._state.profilePage.newPostText = newText
         this._rerenderEntireTree()
     },*/
-
     dispatch(action) {
         if (action.type === 'addPost') {
             let newPost = {id: 5, message: action.postMessage, likesCount: 0}
@@ -66,15 +62,7 @@ export let store:storeType = {
     },
 };
 
-export type addPostActionType = {
-    type: 'addPost'
-    postMessage: string
-}
 
-export type updateNewPostTextActionType = {
-    type: 'updateNewPostText'
-    newText: string
-}
 
 export type storeType = {
     _state: _stateType,
@@ -88,34 +76,38 @@ export type storeType = {
     dispatch: (action: addPostActionType | updateNewPostTextActionType) => void
 }
 
-
+export const addPostAC = (postText: string):addPostActionType => ({type: 'addPost', postMessage: postText})
+export const updateNewPostTextAC = (postText: string):updateNewPostTextActionType => ({type: 'updateNewPostText', newText: postText})
+export type addPostActionType = {
+    type: 'addPost'
+    postMessage: string
+}
+export type updateNewPostTextActionType = {
+    type: 'updateNewPostText'
+    newText: string
+}
 export type _stateType = {
     profilePage: profilePageType
     messagesPage: messages
 }
-
 export type postsDataType = {
     id: number
     message: string
     likesCount: number
 }
-
-type messages = {
+export type messages = {
     messages:messagesType[]
 }
-
 export type messagesType = {
     id: number
     message: string
 }
-
 export type profilePageType = {
     posts: postsDataType[]
     newPostText: string
     dialogs: dialogsDataType[]
 
 }
-
 export type dialogsDataType = {
     id: number
     name: string
