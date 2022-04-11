@@ -17,7 +17,9 @@ export let store:storeType = {
                 {id: 2, message: 'yo'},
                 {id: 3, message: 'hello world'},
                 {id: 4, message: 'hello world'},
-            ]}
+            ],
+            newMessageText: ''},
+
     },
 
     getState() {
@@ -58,6 +60,15 @@ export let store:storeType = {
         } else if (action.type === 'updateNewPostText') {
             this._state.profilePage.newPostText = action.newText
             this._rerenderEntireTree(this._state)
+        } else if (action.type === 'updateNewTextMessage') {
+            this._state.messagesPage.newMessageText = action.newTextMessage
+            this._rerenderEntireTree(this._state)
+        }else if (action.type === 'sendMessage') {
+            let bodyMessage = this._state.messagesPage.newMessageText
+            this._state.messagesPage.newMessageText = ''
+            let newMessage = {id: 5, message: bodyMessage}
+            this._state.messagesPage.messages.push(newMessage)
+            this._rerenderEntireTree(this._state)
         }
     },
 };
@@ -73,11 +84,13 @@ export type storeType = {
     getPosts: () => Array<postsDataType>
     getNewPostText: () => string
     _rerenderEntireTree: (state: any) => void
-    dispatch: (action: addPostActionType | updateNewPostTextActionType) => void
+    dispatch: (action: addPostActionType | updateNewPostTextActionType | updateNewTextMessageActionType | sendMessageActionType) => void
 }
 
 export const addPostAC = (postText: string):addPostActionType => ({type: 'addPost', postMessage: postText})
 export const updateNewPostTextAC = (postText: string):updateNewPostTextActionType => ({type: 'updateNewPostText', newText: postText})
+export const updateNewTextMessageAC = (newTextForMessageField: string):updateNewTextMessageActionType => ({type: 'updateNewTextMessage', newTextMessage: newTextForMessageField})
+export const sendMessageAC = (): sendMessageActionType => ({type: 'sendMessage'})
 export type addPostActionType = {
     type: 'addPost'
     postMessage: string
@@ -86,6 +99,17 @@ export type updateNewPostTextActionType = {
     type: 'updateNewPostText'
     newText: string
 }
+export type updateNewTextMessageActionType = {
+    type: 'updateNewTextMessage'
+    newTextMessage: string
+}
+export type sendMessageActionType = {
+    type: 'sendMessage'
+}
+
+
+
+
 export type _stateType = {
     profilePage: profilePageType
     messagesPage: messages
@@ -97,6 +121,7 @@ export type postsDataType = {
 }
 export type messages = {
     messages:messagesType[]
+    newMessageText: string
 }
 export type messagesType = {
     id: number

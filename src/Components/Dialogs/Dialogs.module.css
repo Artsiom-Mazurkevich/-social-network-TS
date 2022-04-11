@@ -10,3 +10,7 @@
 .listMessages {
  padding: 15px;
 }
+
+.message {
+    font-size: 1.8em;
+}
