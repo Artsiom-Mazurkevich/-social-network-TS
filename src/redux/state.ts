@@ -1,3 +1,6 @@
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+
 export let store:storeType = {
     _state: {
         profilePage: {posts: [
@@ -51,25 +54,30 @@ export let store:storeType = {
         this._state.profilePage.newPostText = newText
         this._rerenderEntireTree()
     },*/
-    dispatch(action) {
-        if (action.type === 'addPost') {
-            let newPost = {id: 5, message: action.postMessage, likesCount: 0}
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = ''
-            this._rerenderEntireTree(this._state)
-        } else if (action.type === 'updateNewPostText') {
-            this._state.profilePage.newPostText = action.newText
-            this._rerenderEntireTree(this._state)
-        } else if (action.type === 'updateNewTextMessage') {
-            this._state.messagesPage.newMessageText = action.newTextMessage
-            this._rerenderEntireTree(this._state)
-        }else if (action.type === 'sendMessage') {
-            let bodyMessage = this._state.messagesPage.newMessageText
-            this._state.messagesPage.newMessageText = ''
-            let newMessage = {id: 5, message: bodyMessage}
-            this._state.messagesPage.messages.push(newMessage)
-            this._rerenderEntireTree(this._state)
-        }
+    dispatch(action: ActionsTypes) {
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.messagesPage = dialogsReducer(this._state.messagesPage, action)
+        this._rerenderEntireTree(this._state)
+
+        // if (action.type === 'addPost') {
+        //     let newPost = {id: 5, message: action.postMessage, likesCount: 0}
+        //     this._state.profilePage.posts.push(newPost);
+        //     this._state.profilePage.newPostText = ''
+        //     this._rerenderEntireTree(this._state)
+        // } else if (action.type === 'updateNewPostText') {
+        //     this._state.profilePage.newPostText = action.newText
+        //     this._rerenderEntireTree(this._state)
+        // } else if (action.type === 'updateNewTextMessage') {
+        //     this._state.messagesPage.newMessageText = action.newTextMessage
+        //     this._rerenderEntireTree(this._state)
+        // }else if (action.type === 'sendMessage') {
+        //     let bodyMessage = this._state.messagesPage.newMessageText
+        //     this._state.messagesPage.newMessageText = ''
+        //     let newMessage = {id: 5, message: bodyMessage}
+        //     this._state.messagesPage.messages.push(newMessage)
+        //     this._rerenderEntireTree(this._state)
+        // }
     },
 };
 
@@ -91,6 +99,7 @@ export const addPostAC = (postText: string):addPostActionType => ({type: 'addPos
 export const updateNewPostTextAC = (postText: string):updateNewPostTextActionType => ({type: 'updateNewPostText', newText: postText})
 export const updateNewTextMessageAC = (newTextForMessageField: string):updateNewTextMessageActionType => ({type: 'updateNewTextMessage', newTextMessage: newTextForMessageField})
 export const sendMessageAC = (): sendMessageActionType => ({type: 'sendMessage'})
+export type ActionsTypes = addPostActionType | updateNewPostTextActionType | updateNewTextMessageActionType | sendMessageActionType
 export type addPostActionType = {
     type: 'addPost'
     postMessage: string
