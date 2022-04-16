@@ -1,6 +1,20 @@
 import {ActionsTypes, messages, sendMessageActionType, updateNewTextMessageActionType} from "./state";
 
-export const dialogsReducer = (state: messages, action: ActionsTypes) => {
+
+
+
+let initialStateForDialogsReducer: messages = {
+     messages:[
+            {id: 1, message: 'hi'},
+            {id: 2, message: 'yo'},
+            {id: 3, message: 'hello world'},
+            {id: 4, message: 'hello world'},
+        ],
+        newMessageText: '',
+}
+
+
+export const dialogsReducer = (state: messages = initialStateForDialogsReducer, action: ActionsTypes) => {
     switch (action.type) {
         case 'updateNewTextMessage':
             state.newMessageText = action.newTextMessage
