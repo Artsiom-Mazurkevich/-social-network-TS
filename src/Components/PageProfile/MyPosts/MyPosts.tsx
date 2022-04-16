@@ -1,43 +1,47 @@
-import React from 'react';
+import React, {FC} from 'react';
 import Post from "./Post/Post";
 import {
-    addPostAC,
-    addPostActionType,
+
     postsDataType,
-    updateNewPostTextAC,
-    updateNewPostTextActionType
+
 } from "../../../redux/state";
 
 
 
 
 type myPostsPropsType = {
-    posts: Array<postsDataType>
+    // posts: Array<postsDataType>
+    // newPostText: string
+    // dispatch: (action: addPostActionType | updateNewPostTextActionType) => void
+    updateNewPostText: (newPostElement: string) =>  void
+addPost: () => void
+posts: postsDataType[]
     newPostText: string
-    dispatch: (action: addPostActionType | updateNewPostTextActionType) => void
 }
 
-const MyPosts = (props: myPostsPropsType) => {
+export const MyPosts: FC<myPostsPropsType> = ({updateNewPostText, addPost, posts, newPostText}) => {
 
-    let PostsElements = props.posts.map(p => <Post message={p.message} likeCounts={p.likesCount}/>);
+    let PostsElements = posts.map(p => <Post message={p.message} likeCounts={p.likesCount}/>);
 
     let newPostElement= React.createRef<HTMLTextAreaElement>()
     
-    const addPost = () => {
-        props.dispatch(addPostAC(props.newPostText))
+    const onAddPost = () => {
+        //props.dispatch(addPostAC(props.newPostText))
+        addPost()
     }
     
     const onPostChange = () => {
         let text: string = newPostElement.current?.value!;
-        props.dispatch(updateNewPostTextAC(text))
+        //props.dispatch(updateNewPostTextAC(text))
+        updateNewPostText(text)
     }
 
     return (
             <div>
                 My posts
                 <div>
-                    <textarea ref={newPostElement} value={props.newPostText} onChange={ onPostChange }/>
-                    <button onClick={ addPost }>Add post</button>
+                    <textarea ref={newPostElement} value={newPostText} onChange={ onPostChange }/>
+                    <button onClick={ onAddPost }>Add post</button>
                 </div>
                 <div className={'posts'}>
                     {PostsElements}
@@ -45,5 +49,3 @@ const MyPosts = (props: myPostsPropsType) => {
             </div>
     );
 };
-
-export default MyPosts;

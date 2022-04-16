@@ -8,4 +8,5 @@ let reducers = combineReducers({
     messagesPage: dialogsReducer
 })
 
-export let reduxStore = createStore(reducers)
+
+export let store = createStore(reducers)

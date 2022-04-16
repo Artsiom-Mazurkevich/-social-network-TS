@@ -4,18 +4,23 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
 //import {_stateType, store} from "./redux/state";
-import {reduxStore} from "./redux/redux-store";
-import { _stateType } from "./redux/state";
+import {store} from "./redux/store";
+import {Store} from "redux";
+//import { _stateType } from "./redux/state";
 
 
-const rerenderEntireTree = (state:_stateType) => {
+
+
+
+const rerenderEntireTree = (state: Store) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
                 <App
-                    state={state}
+                    store={store}
                     //dispatch={store.dispatch.bind(store)}
-                    dispatch={reduxStore.dispatch.bind(reduxStore)}
+                    //dispatch={reduxStore.dispatch.bind(reduxStore)}
+                    //store={reduxStore}
                 />
             </BrowserRouter>
         </React.StrictMode>,
@@ -23,10 +28,10 @@ const rerenderEntireTree = (state:_stateType) => {
     );
 };
 
-rerenderEntireTree(reduxStore.getState());
-reduxStore.subscribe( () => {
-    let state = reduxStore.getState()
-    rerenderEntireTree(state)
+rerenderEntireTree(store);
+store.subscribe( () => {
+    let state = store.getState()
+    rerenderEntireTree(store)
 } );
 
 // rerenderEntireTree(store.getState());
