@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './Post.module.css';
 
 type PropsMessageType = {
@@ -6,13 +6,13 @@ type PropsMessageType = {
     likeCounts: number
 }
 
-const Post = (props: PropsMessageType) => {
+const Post: FC<PropsMessageType> = ({message, likeCounts}) => {
     return (
         <div className={s.item}>
             <img src={'https://images5.alphacoders.com/112/thumb-350-1120452.jpg'}/>
-            {props.message}
+            {message}
             <div>
-                <span>{props.likeCounts}</span>
+                <span>{likeCounts}</span>
             </div>
         </div>
 

@@ -1,8 +1,5 @@
 import React, {FC} from 'react';
-import {
-    addPostAC,
-    updateNewPostTextAC,
-} from "../../../redux/state";
+import {addPostAC, updateNewPostTextAC,} from "../../../redux/state";
 import {MyPosts} from "./MyPosts";
 import {Store} from "redux";
 
@@ -21,7 +18,6 @@ export const MyPostsContainer: FC<myPostsPropsType> = ({store}) => {
     }
     
     const onPostChange = (newPostElement: string) => {
-        //let text: string = newPostElement.current?.value!;
         store.dispatch(updateNewPostTextAC(newPostElement))
     }
 

@@ -10,22 +10,20 @@ import {
 } from "../../redux/state";
 
 
-
-
 type dialogsType = {
     onChangeNewMessage: (text: string) => void
-sendMessage: () => void
+    sendMessage: () => void
     dialogs: dialogsDataType[]
     messages: messagesType[]
     newMessageBody: string
 }
 
-const Dialogs: FC<dialogsType> = ({onChangeNewMessage,sendMessage, dialogs, messages,newMessageBody}) => {
+const Dialogs: FC<dialogsType> = ({onChangeNewMessage, sendMessage, dialogs, messages, newMessageBody}) => {
 
     let Dialogs = dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
     let Messages = messages.map(m => <Message titleMessage={m.message} id={m.id}/>);
     let newMessage = newMessageBody
-    
+
     const onChangeNewMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let message: string = e.currentTarget.value
         onChangeNewMessage(message)
@@ -34,7 +32,7 @@ const Dialogs: FC<dialogsType> = ({onChangeNewMessage,sendMessage, dialogs, mess
 
     const sendMessageHandler = () => {
         sendMessage()
-      //props.dispatch(sendMessageAC())
+        //props.dispatch(sendMessageAC())
     }
     return (
         <div className={s.dialogs}>
@@ -44,16 +42,16 @@ const Dialogs: FC<dialogsType> = ({onChangeNewMessage,sendMessage, dialogs, mess
             <div className={s.listMessages}>
                 <div>{Messages}</div>
                 <div>
-                    <div><textarea onChange={onChangeNewMessageHandler} placeholder={'Enter your message'} value={newMessage}/></div>
-                    <div><button onClick={sendMessageHandler}>Send</button></div>
+                    <div><textarea onChange={onChangeNewMessageHandler} placeholder={'Enter your message'}
+                                   value={newMessage}/></div>
+                    <div>
+                        <button onClick={sendMessageHandler}>Send</button>
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
-
-
-
 
 
 export default Dialogs;

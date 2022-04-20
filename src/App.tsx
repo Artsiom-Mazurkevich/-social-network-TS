@@ -2,7 +2,6 @@ import React, {FC} from 'react';
 import './App.css';
 import Nav from "./Components/Nav/Nav";
 import Header from "./Components/Header/Header";
-import Dialogs from "./Components/Dialogs/Dialogs";
 import PageProfile from "./Components/PageProfile/PageProfile";
 import { Route, Routes } from "react-router-dom";
 import News from "./Components/News/News";
@@ -12,12 +11,9 @@ import {Store} from "redux";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
-
-
 type appType = {
     store: Store
 }
-
 
 
 const App: FC<appType> = ({store}) => {
@@ -30,11 +26,9 @@ const App: FC<appType> = ({store}) => {
                   <Routes>
                       <Route path={'/dialogs/*'}
                              element={
-                          //<Dialogs state={props.state} dispatch={props.dispatch}/>
                           <DialogsContainer store={store}/>
                       }/>
                       <Route path={'/profile'} element={
-                          //<PageProfile state={props.state} dispatch={props.dispatch}/>
                           <PageProfile store={store}/>
                       }/>
                       <Route path={'/news'} element={<News/>}/>
