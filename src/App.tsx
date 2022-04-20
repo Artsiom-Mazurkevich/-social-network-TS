@@ -11,12 +11,12 @@ import {Store} from "redux";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
-type appType = {
-    store: Store
-}
+// type appType = {
+//     store: Store
+// }
 
 
-const App: FC<appType> = ({store}) => {
+const App/*: FC<appType>*/ = () => {
   return (
       <div className={'app-wrapper'}>
         <Header/>
@@ -26,10 +26,10 @@ const App: FC<appType> = ({store}) => {
                   <Routes>
                       <Route path={'/dialogs/*'}
                              element={
-                          <DialogsContainer store={store}/>
+                          <DialogsContainer /> /*store={store}*/
                       }/>
                       <Route path={'/profile'} element={
-                          <PageProfile store={store}/>
+                          <PageProfile />  /*store={store}*/
                       }/>
                       <Route path={'/news'} element={<News/>}/>
                       <Route path={'/music'} element={<Music/>}/>

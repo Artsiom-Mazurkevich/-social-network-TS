@@ -6,16 +6,16 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 
 
-type pageProfileType = {
-    store: Store
-}
+// type pageProfileType = {
+//     store: Store
+// }
 
-const PageProfile: FC<pageProfileType> = ({store}) => {
+const PageProfile/*: FC<pageProfileType>*/ = () => {
 
     return (
         <div className={s.profile}>
             <ProfileInfo/>
-            <MyPostsContainer store={store}/>
+            <MyPostsContainer />  {/*store={store}*/}
         </div>
     );
 };
