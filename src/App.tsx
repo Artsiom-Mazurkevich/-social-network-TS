@@ -8,7 +8,8 @@ import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
 import {Store} from "redux";
-import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import {DialogsContainerRR} from "./Components/Dialogs/DialogsContainer";
+// import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
 // type appType = {
@@ -26,7 +27,7 @@ const App/*: FC<appType>*/ = () => {
                   <Routes>
                       <Route path={'/dialogs/*'}
                              element={
-                          <DialogsContainer /> /*store={store}*/
+                          <DialogsContainerRR /> /*store={store}*/
                       }/>
                       <Route path={'/profile'} element={
                           <PageProfile />  /*store={store}*/

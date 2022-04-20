@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import s from './PageProfile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {Store} from "redux";
-import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+import {MyPostsContainerRR} from "./MyPosts/MyPostsContainer";
+
 
 
 
@@ -15,7 +15,7 @@ const PageProfile/*: FC<pageProfileType>*/ = () => {
     return (
         <div className={s.profile}>
             <ProfileInfo/>
-            <MyPostsContainer />  {/*store={store}*/}
+            <MyPostsContainerRR />  {/*store={store}*/}
         </div>
     );
 };

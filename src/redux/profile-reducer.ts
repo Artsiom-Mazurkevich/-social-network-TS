@@ -26,18 +26,19 @@ let initialStateForProfilePage = {
 export const profileReducer = (state: profilePageType = initialStateForProfilePage, action: ActionsTypes) => {
     switch (action.type) {
         case 'addPost':
-            let newPost = {id: 5, message: action.postMessage, likesCount: 0}
+            let newPost = {id: 5, message: state.newPostText, likesCount: 0}
             state.posts.push(newPost);
             state.newPostText = ''
             break;
         case 'updateNewPostText':
+            console.log('red', action.newText)
             state.newPostText = action.newText
             break;
     }
-    return state
+    return {...state}
 }
 
-export const addPostAC = (postText: string): addPostActionType => ({type: 'addPost', postMessage: postText})
+export const addPostAC = (postText: string): addPostActionType => ({type: 'addPost'})
 export const updateNewPostTextAC = (postText: string): updateNewPostTextActionType => ({
     type: 'updateNewPostText',
     newText: postText

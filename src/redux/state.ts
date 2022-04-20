@@ -95,14 +95,13 @@ export type storeType = {
     dispatch: (action: addPostActionType | updateNewPostTextActionType | updateNewTextMessageActionType | sendMessageActionType) => void
 }
 
-export const addPostAC = (postText: string):addPostActionType => ({type: 'addPost', postMessage: postText})
+export const addPostAC = ():addPostActionType => ({type: 'addPost'})
 export const updateNewPostTextAC = (postText: string):updateNewPostTextActionType => ({type: 'updateNewPostText', newText: postText})
 export const updateNewTextMessageAC = (newTextForMessageField: string):updateNewTextMessageActionType => ({type: 'updateNewTextMessage', newTextMessage: newTextForMessageField})
 export const sendMessageAC = (): sendMessageActionType => ({type: 'sendMessage'})
 export type ActionsTypes = addPostActionType | updateNewPostTextActionType | updateNewTextMessageActionType | sendMessageActionType
 export type addPostActionType = {
     type: 'addPost'
-    postMessage: string
 }
 export type updateNewPostTextActionType = {
     type: 'updateNewPostText'
