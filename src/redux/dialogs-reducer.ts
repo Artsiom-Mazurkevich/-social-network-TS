@@ -1,9 +1,15 @@
-import {ActionsTypes, messages, sendMessageActionType, updateNewTextMessageActionType} from "./state";
+
+export type messages = {
+    messages:messagesType[]
+    newMessageText: string
+}
+export type messagesType = {
+    id: number
+    message: string
+}
 
 
-
-
-let initialStateForDialogsReducer: messages = {
+const initialStateForDialogsReducer: messages = {
      messages:[
             {id: 1, message: 'hi'},
             {id: 2, message: 'yo'},
@@ -14,20 +20,28 @@ let initialStateForDialogsReducer: messages = {
 }
 
 
-export const dialogsReducer = (state: messages = initialStateForDialogsReducer, action: ActionsTypes) => {
+export const dialogsReducer = (state: messages = initialStateForDialogsReducer, action: updateNewTextMessageActionType | sendMessageActionType) => {
     switch (action.type) {
         case 'updateNewTextMessage':
-            state.newMessageText = action.newTextMessage
-            break;
+             const copy = {...state};
+             copy.newMessageText = action.newTextMessage
+                return copy
         case 'sendMessage':
-            let bodyMessage = state.newMessageText
-            state.newMessageText = ''
-            let newMessage = {id: 5, message: bodyMessage}
-            state.messages.push(newMessage)
-            break;
+            const currentText = state.newMessageText
+            const copyState = {...state, newMessageText:'',messages: [...state.messages, {id: 5, message: currentText}]}
+            return copyState
+        default: return state
     }
-    return state
 }
 
+
+
+export type updateNewTextMessageActionType = {
+    type: 'updateNewTextMessage'
+    newTextMessage: string
+}
+export type sendMessageActionType = {
+    type: 'sendMessage'
+}
 export const updateNewTextMessageAC = (newTextForMessageField: string):updateNewTextMessageActionType => ({type: 'updateNewTextMessage', newTextMessage: newTextForMessageField})
 export const sendMessageAC = (): sendMessageActionType => ({type: 'sendMessage'})

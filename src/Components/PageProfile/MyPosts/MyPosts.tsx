@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import Post from "./Post/Post";
-import {_stateType, postsDataType,} from "../../../redux/state";
+import {postsDataType} from "../../../redux/profile-reducer";
+
 
 
 type myPostsPropsType = {
@@ -15,8 +16,8 @@ export const MyPosts: FC<myPostsPropsType> = ({updateNewPostText, addPost, posts
     let PostsElements = posts.map(p => <Post message={p.message} likeCounts={p.likesCount}/>);
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
-
     const onAddPost = () => {
+
         addPost()
     }
 

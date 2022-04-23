@@ -1,54 +1,23 @@
 import React from 'react';
-import {_stateType, sendMessageAC, updateNewTextMessageAC,} from "../../redux/state";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
+import {messagesType, sendMessageAC, updateNewTextMessageAC} from "../../redux/dialogs-reducer";
+import {AppStateType} from "../../redux/store";
+import {dialogsDataType} from "../../redux/profile-reducer";
 
 
-// type dialogsType = {
-//     store: Store
-// }
 
-// export const DialogsContainer/*: FC<dialogsType> */ = () => {
-//     // let state = store.getState()
-//     //
-//     // const onChangeNewMessage = (text: string) => {
-//     //     store.dispatch(updateNewTextMessageAC(text))
-//     // }
-//     //
-//     // const sendMessage = () => {
-//     //   store.dispatch(sendMessageAC())
-//     // }
-//
-//     return (
-//         <StoreContext.Consumer>
-//             {
-//                 (store) => {
-//
-//                     let state = store.getState()
-//                     const onChangeNewMessage = (text: string) => {
-//                         store.dispatch(updateNewTextMessageAC(text))
-//                     }
-//                     const sendMessage = () => {
-//                         store.dispatch(sendMessageAC())
-//                     }
-//
-//                     return <Dialogs onChangeNewMessage={onChangeNewMessage}
-//                                     sendMessage={sendMessage}
-//                                     dialogs={state.profilePage.dialogs}
-//                                     messages={state.messagesPage.messages}
-//                                     newMessageBody={state.messagesPage.newMessageText}/>
-//                 }
-//             }
-//         </StoreContext.Consumer>
-//     );
-// };
+type ObjFromMapState = {
+    dialogs: Array<dialogsDataType>
+    messages: Array<messagesType>
+    newMessageBody: string
+}
 
-
-const mapStateToProps = (state: _stateType) => {
+const mapStateToProps = (state: AppStateType): ObjFromMapState => {
     return {
-        dialogs: state.profilePage.dialogs,
-        messages: state.messagesPage.messages,
-        newMessageBody: state.messagesPage.newMessageText
+        dialogs: state.profilePage['dialogs'],
+        messages: state.messagesPage['messages'],
+        newMessageBody: state.messagesPage['newMessageText']
     }
 }
 const mapDispatchToProps = (dispatch: any) => {

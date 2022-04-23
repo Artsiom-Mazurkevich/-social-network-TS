@@ -8,6 +8,6 @@ export const rootReducer = combineReducers({
     messagesPage: dialogsReducer
 })
 
-export type AppStateType = typeof store
+export type AppStateType = ReturnType<typeof rootReducer>
 
 export const store = createStore(rootReducer)

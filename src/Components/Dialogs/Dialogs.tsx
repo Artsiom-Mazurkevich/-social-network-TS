@@ -2,12 +2,9 @@ import React, {ChangeEvent, FC} from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {
-    _stateType,
-    addPostActionType, dialogsDataType, messagesType, sendMessageAC, sendMessageActionType,
-    updateNewPostTextActionType, updateNewTextMessageAC,
-    updateNewTextMessageActionType
-} from "../../redux/state";
+import {dialogsDataType} from "../../redux/profile-reducer";
+import {messagesType} from "../../redux/dialogs-reducer";
+
 
 
 type dialogsType = {
@@ -27,12 +24,10 @@ const Dialogs: FC<dialogsType> = ({onChangeNewMessage, sendMessage, dialogs, mes
     const onChangeNewMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let message: string = e.currentTarget.value
         onChangeNewMessage(message)
-        //props.dispatch(updateNewTextMessageAC(message))
     }
 
     const sendMessageHandler = () => {
         sendMessage()
-        //props.dispatch(sendMessageAC())
     }
     return (
         <div className={s.dialogs}>

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './App.css';
 import Nav from "./Components/Nav/Nav";
 import Header from "./Components/Header/Header";
@@ -7,17 +7,14 @@ import { Route, Routes } from "react-router-dom";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
-import {Store} from "redux";
 import {DialogsContainerRR} from "./Components/Dialogs/DialogsContainer";
-// import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
-// type appType = {
-//     store: Store
-// }
 
 
-const App/*: FC<appType>*/ = () => {
+
+
+const App= () => {
   return (
       <div className={'app-wrapper'}>
         <Header/>
@@ -27,10 +24,10 @@ const App/*: FC<appType>*/ = () => {
                   <Routes>
                       <Route path={'/dialogs/*'}
                              element={
-                          <DialogsContainerRR /> /*store={store}*/
+                          <DialogsContainerRR />
                       }/>
                       <Route path={'/profile'} element={
-                          <PageProfile />  /*store={store}*/
+                          <PageProfile />
                       }/>
                       <Route path={'/news'} element={<News/>}/>
                       <Route path={'/music'} element={<Music/>}/>
