@@ -17,7 +17,7 @@ const mapStateToProps = (state: AppStateType): ObjFromMapState => {
     return {
         dialogs: state.profilePage['dialogs'],
         messages: state.messagesPage['messages'],
-        newMessageBody: state.messagesPage['newMessageText']
+        newMessageBody: state.messagesPage['newMessageText'],
     }
 }
 const mapDispatchToProps = (dispatch: any) => {
