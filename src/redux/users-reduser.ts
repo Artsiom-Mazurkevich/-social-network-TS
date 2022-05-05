@@ -17,7 +17,7 @@ export type StateUsersType = {
 
 const initialStateUsers: StateUsersType = {
     items: [],
-    pageSize: 50,
+    pageSize: 10,
     totalCount: 0,
     currentPage: 1,
 }
@@ -35,7 +35,7 @@ export const usersReducers = (state: StateUsersType = initialStateUsers, action:
             return {...state, items: action.items}
         }
         case 'SET_CURRENT_PAGE': {
-            return {...state, users: action.pageNumber}
+            return {...state, users: action.pageNumber, currentPage: action.pageNumber}
         }
         case 'SET_TOTAL_USERS_COUNT': {
             return {...state, totalCount: action.totalCount}

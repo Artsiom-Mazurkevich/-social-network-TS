@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import {StateUsersType} from "../../redux/users-reduser";
 import {UsersPropsType} from "./Users";
 import s from './Users.module.css'
+import {Pagination} from "@mantine/core";
 
 
 
@@ -21,6 +22,7 @@ export class UsersClassComponent extends React.Component<UsersPropsType & StateU
     }
 
     onPageChanged = (pageNumber: number) => {
+        debugger
         this.props.setCurrentPage(pageNumber)
         axios.get<StateUsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers(response.data.items)
@@ -36,6 +38,15 @@ export class UsersClassComponent extends React.Component<UsersPropsType & StateU
     //     }
     // }
 
+
+
+
+/*    return <span
+onClick={() => {this.onPageChanged(p)}}
+className={this.props.currentPage === p ? s.selectedPage : ''}>
+{p}
+</span>*/
+
     render() {
 
         let pageCount = Math.ceil(this.props.totalCount / this.props.pageSize);
@@ -45,15 +56,10 @@ export class UsersClassComponent extends React.Component<UsersPropsType & StateU
         }
 
         return <div>
-            <div>
-                {pages.map(p => {
-                    return <span
-                        onClick={() => {this.onPageChanged(p)}}
-                        className={this.props.currentPage === p ? s.selectedPage : s.page}>
-                        {p}
-                    </span>
-                })}
-            </div>
+            <Pagination total={pageCount} initialPage={this.props.currentPage} onChange={(e) => {this.onPageChanged(e)}}/>
+
+
+
             {/*<button onClick={this.getUsers}>get users</button>*/}
             {this.props.items.map((u, i) => <div key={u.id} style={{
                 display: 'flex',
