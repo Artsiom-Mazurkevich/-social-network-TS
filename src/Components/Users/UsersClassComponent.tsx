@@ -1,8 +1,8 @@
 import React from "react";
-import {AppStateType} from "../../redux/store";
 import axios from "axios";
 import {StateUsersType} from "../../redux/users-reduser";
 import {UsersPropsType} from "./Users";
+import s from './Users.module.css'
 
 
 
@@ -10,13 +10,19 @@ import {UsersPropsType} from "./Users";
 
 
 
-export class UsersClassComponent extends React.Component<UsersPropsType>{
+export class UsersClassComponent extends React.Component<UsersPropsType & StateUsersType>{
 
-    constructor(props: UsersPropsType) {
-        super(props);
-        alert('NEW');
-        axios.get<StateUsersType>('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+    componentDidMount() {
+        axios.get<StateUsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             debugger
+            this.props.setUsers(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get<StateUsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers(response.data.items)
         })
     }
@@ -30,7 +36,24 @@ export class UsersClassComponent extends React.Component<UsersPropsType>{
     //     }
     // }
 
-    render() { return <div>
+    render() {
+
+        let pageCount = Math.ceil(this.props.totalCount / this.props.pageSize);
+        let pages = [];
+        for (let i = 1; i <= pageCount; i++) {
+            pages.push(i)
+        }
+
+        return <div>
+            <div>
+                {pages.map(p => {
+                    return <span
+                        onClick={() => {this.onPageChanged(p)}}
+                        className={this.props.currentPage === p ? s.selectedPage : s.page}>
+                        {p}
+                    </span>
+                })}
+            </div>
             {/*<button onClick={this.getUsers}>get users</button>*/}
             {this.props.items.map((u, i) => <div key={u.id} style={{
                 display: 'flex',

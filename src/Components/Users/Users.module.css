@@ -1,0 +1,9 @@
+.selectedPage {
+    font-weight: bold;
+    color: #0068ff;
+}
+
+.page {
+    border: 1px solid red;
+    margin: 3px;
+}
