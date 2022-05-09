@@ -1,18 +1,11 @@
-import React from 'react';
-import {connect} from "react-redux";
-import {AppStateType} from "../../redux/store";
-import {
-    followAC,
-    setPageAC,
-    setUsersAC,
-    setUsersTotalCountAC,
-    StateUsersType,
-    unfollowAC,
-    UsersType
-} from "../../redux/users-reduser";
-import {UsersPropsType} from "./Users";
+import React from "react";
+/*
+import React from "react";
 import axios from "axios";
+import {StateUsersType} from "../../redux/users-reduser";
+import {UsersPropsType} from "./Users";
 import {UsersPresentational} from "./UsersPresentational";
+
 
 
 
@@ -51,39 +44,6 @@ export class UsersAPIComponent extends React.Component<UsersPropsType & StateUse
                                     currentPage={this.props.currentPage}/>
     }
 }
+*/
 
-
-
-
-const mapStateToProps = (state: AppStateType) => {
-    return {
-        items: state.usersPage['items'],
-        pageSize: state.usersPage.pageSize,
-        totalCount: state.usersPage.totalCount,
-        currentPage: state.usersPage.currentPage,
-    }
-}
-
-
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users: Array<UsersType>) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber: number) => {
-            dispatch(setPageAC(pageNumber))
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setUsersTotalCountAC(totalCount))
-        },
-    }
-}
-
-export const UsersContainer = connect (mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
 
