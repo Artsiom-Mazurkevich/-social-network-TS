@@ -6,31 +6,30 @@ import {
     setPageAC,
     setUsersAC,
     setUsersTotalCountAC,
-    StateUsersType,
+    StateUsersType, toggleIsFetchingAC,
     unfollowAC,
     UsersType
 } from "../../redux/users-reduser";
 import {UsersPropsType} from "./Users";
 import axios from "axios";
 import {UsersPresentational} from "./UsersPresentational";
-
-
-
-
+import {Loader} from "@mantine/core";
 
 
 export class UsersAPIComponent extends React.Component<UsersPropsType & StateUsersType>{
     componentDidMount() {
+        this.props.toggleIsFetching(true)
         axios.get<StateUsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-            debugger
+            this.props.toggleIsFetching(false)
             this.props.setUsers(response.data.items);
             this.props.setTotalUsersCount(response.data.totalCount)
         })
     }
     onPageChanged = (pageNumber: number) => {
-        debugger
         this.props.setCurrentPage(pageNumber)
+        this.props.toggleIsFetching(true)
         axios.get<StateUsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.toggleIsFetching(false)
             this.props.setUsers(response.data.items)
         })
     }
@@ -42,13 +41,17 @@ export class UsersAPIComponent extends React.Component<UsersPropsType & StateUse
             pages.push(i)
         }
 
-        return <UsersPresentational items={this.props.items}
-                                    onPageChanged={this.onPageChanged}
-                                    follow={this.props.follow}
-                                    unfollow={this.props.unfollow}
-                                    pageSize={this.props.pageSize}
-                                    totalCount={this.props.totalCount}
-                                    currentPage={this.props.currentPage}/>
+        return (
+            <>
+                {this.props.isFetching ? <Loader size="xl" /> : null}
+                <UsersPresentational items={this.props.items}
+                                   onPageChanged={this.onPageChanged}
+                                   follow={this.props.follow}
+                                   unfollow={this.props.unfollow}
+                                   pageSize={this.props.pageSize}
+                                   totalCount={this.props.totalCount}
+                                   currentPage={this.props.currentPage}/>
+            </>)
     }
 }
 
@@ -61,6 +64,7 @@ const mapStateToProps = (state: AppStateType) => {
         pageSize: state.usersPage.pageSize,
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching,
     }
 }
 
@@ -81,6 +85,9 @@ const mapDispatchToProps = (dispatch: any) => {
         },
         setTotalUsersCount: (totalCount: number) => {
             dispatch(setUsersTotalCountAC(totalCount))
+        },
+        toggleIsFetching: (isFetching: boolean) => {
+            dispatch(toggleIsFetchingAC(isFetching))
         },
     }
 }

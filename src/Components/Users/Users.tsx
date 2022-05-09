@@ -10,6 +10,7 @@ export type UsersPropsType = {
     setUsers: (users: Array<UsersType>) => void
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
+    toggleIsFetching: (isFetching: boolean) => void
 }
 
 
