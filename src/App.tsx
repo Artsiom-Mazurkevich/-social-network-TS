@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css';
 import Nav from "./Components/Nav/Nav";
 import Header from "./Components/Header/Header";
-import PageProfile from "./Components/PageProfile/PageProfile";
 import { Route, Routes } from "react-router-dom";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
 import {DialogsContainerRR} from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/UsersContainer";
+import {PageProfileContainer} from "./Components/PageProfile/PageProfileContainer";
 
 
 
@@ -29,7 +29,7 @@ const App= () => {
                           <DialogsContainerRR />
                       }/>
                       <Route path={'/profile'} element={
-                          <PageProfile />
+                          <PageProfileContainer />
                       }/>
                       <Route path={'/users'} element={<UsersContainer/>}/>
                       <Route path={'/news'} element={<News/>}/>

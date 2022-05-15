@@ -1,6 +1,8 @@
 import React from 'react';
-import {Pagination} from "@mantine/core";
+import {Avatar, Pagination} from "@mantine/core";
 import {UsersType} from "../../redux/users-reduser";
+import DefaultImage from '../../images/cat-avatar.d04271ed.gif'
+import {NavLink} from "react-router-dom";
 
 
 
@@ -47,7 +49,9 @@ export const UsersPresentational = (props: propsType) => {
                     justifyContent: 'space-between',
                     minWidth: '65px'
                 }}>
-                    <img src={''} alt="image" style={{width: '40px', height: '40px', borderRadius: '50%'}}/>
+                   <NavLink to={'/profile' + u.id}>
+                       <img src={u.photos.small !== null ? u.photos.small : DefaultImage} alt="image" style={{width: '50px', height: '50px', borderRadius: '50%'}}/>
+                   </NavLink>
                     {u.followed ? <button onClick={() => {
                         props.unfollow(u.id)
                     }} style={{width: '5em'}}>unfollow</button> : <button onClick={() => {

@@ -2,7 +2,7 @@ export type profilePageType = {
     posts: postsDataType[]
     newPostText: string
     dialogs: dialogsDataType[]
-
+    profile: null
 }
 export type dialogsDataType = {
     id: number
@@ -26,40 +26,40 @@ const initialStateForProfilePage: profilePageType = {
         {id: 3, name: 'Alexander'},
         {id: 4, name: 'Nikolay'},
     ],
+    profile: null
 }
 
 
-export const profileReducer = (state: profilePageType = initialStateForProfilePage, action: addPostActionType | updateNewPostTextActionType) => {
+type ActionsType = ReturnType<typeof setUserProfile>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof addPostAC>
+
+
+export const profileReducer = (state: profilePageType = initialStateForProfilePage, action: ActionsType) => {
     switch (action.type) {
-        case 'addPost':
+        case 'ADD-POST':
             //return {...state,posts:[...state.posts].push({id: 5, message: state.newPostText, likesCount: 0}), newPostText:''}
             let copyState = {...state}
             copyState.posts = [...state.posts]
             copyState.posts.push({id: 5, message: state.newPostText, likesCount: 0})
             copyState.newPostText = ''
             return copyState
-        case 'updateNewPostText':
+        case 'UPDATE-NEW-POST-TEXT':
             //state.newPostText = action.newText
             //return {...state}.newPostText = action.newText
             let copy = {...state}
             copy.newPostText = action.newText
             return copy
-
+        case "SET-USER-PROFILE":
+            return {...state, posts: action.profile}
         default:
             return state
     }
 }
 
-
-export type addPostActionType = {
-    type: 'addPost'
-}
-export type updateNewPostTextActionType = {
-    type: 'updateNewPostText'
-    newText: string
-}
-export const addPostAC = (): addPostActionType => ({type: 'addPost'})    //postText: string
-export const updateNewPostTextAC = (postText: string): updateNewPostTextActionType => ({
-    type: 'updateNewPostText',
+export const addPostAC = () => ({type: 'ADD-POST'} as const)
+export const updateNewPostTextAC = (postText: string) => ({
+    type: 'UPDATE-NEW-POST-TEXT',
     newText: postText
-})
+} as const)
+export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
