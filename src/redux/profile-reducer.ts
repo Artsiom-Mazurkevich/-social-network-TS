@@ -2,7 +2,7 @@ export type profilePageType = {
     posts: postsDataType[]
     newPostText: string
     dialogs: dialogsDataType[]
-    profile: null
+    profile: null | ProfileType
 }
 export type dialogsDataType = {
     id: number
@@ -12,6 +12,29 @@ export type postsDataType = {
     id: number
     message: string
     likesCount: number
+}
+export type ContactsType = {
+    facebook: string
+    website: null
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: null
+    github: string
+    mainLink: null
+}
+export type PhotosType = {
+    small: string
+    large: string
+}
+export type ProfileType = {
+    aboutMe: string
+    contacts: ContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: PhotosType
 }
 
 const initialStateForProfilePage: profilePageType = {
@@ -51,7 +74,7 @@ export const profileReducer = (state: profilePageType = initialStateForProfilePa
             copy.newPostText = action.newText
             return copy
         case "SET-USER-PROFILE":
-            return {...state, posts: action.profile}
+            return {...state, profile: action.profile}
         default:
             return state
     }
@@ -62,4 +85,4 @@ export const updateNewPostTextAC = (postText: string) => ({
     type: 'UPDATE-NEW-POST-TEXT',
     newText: postText
 } as const)
-export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
+export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)

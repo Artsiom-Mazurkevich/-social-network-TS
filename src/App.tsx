@@ -8,7 +8,7 @@ import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
 import {DialogsContainerRR} from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/UsersContainer";
-import {PageProfileContainer} from "./Components/PageProfile/PageProfileContainer";
+import PageProfileContainer from "./Components/PageProfile/PageProfileContainer";
 
 
 

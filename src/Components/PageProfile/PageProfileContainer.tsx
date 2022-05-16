@@ -3,28 +3,39 @@ import s from './PageProfile.module.css';
 import PageProfile from "./PageProfile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {profilePageType, setUserProfile} from "../../redux/profile-reducer";
-import {StateUsersType} from "../../redux/users-reduser";
+import { ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
 
 
-class PageProfileContainer extends React.Component <profilePageType & {}> {
+
+type mapStatePropsType = {
+    profile: ProfileType | null
+}
+
+type mapDispatchPropsType = {
+    setUserProfile: (profile: ProfileType) => void
+}
+
+type PageProfileContainerPropsType = mapStatePropsType & mapDispatchPropsType
+
+
+class PageProfileContainer extends React.Component <PageProfileContainerPropsType> {
+
 
     componentDidMount() {
-        axios.get<StateUsersType>(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
-            debugger
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/23492`).then(response => {
             this.props.setUserProfile(response.data)
         })
     }
 
     render() {
         return (<div className={s.profile}>
-                <PageProfile/>
+                <PageProfile {...this.props} profile={this.props.profile}/>
             </div>
         )
     };
 };
 
-const mapStateToProps = (state: AppStateType) => ({profile: state.profilePage.profile})
+const mapStateToProps = (state: AppStateType): mapStatePropsType => ({profile: state.profilePage.profile})
 
 export default connect(mapStateToProps, {setUserProfile}) (PageProfileContainer)
