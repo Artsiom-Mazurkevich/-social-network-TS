@@ -49,7 +49,7 @@ export const UsersPresentational = (props: propsType) => {
                     justifyContent: 'space-between',
                     minWidth: '65px'
                 }}>
-                   <NavLink to={'/profile' + u.id}>
+                   <NavLink to={'/profile/' + u.id}>
                        <img src={u.photos.small !== null ? u.photos.small : DefaultImage} alt="image" style={{width: '50px', height: '50px', borderRadius: '50%'}}/>
                    </NavLink>
                     {u.followed ? <button onClick={() => {

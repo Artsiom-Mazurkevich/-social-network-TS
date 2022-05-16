@@ -16,8 +16,13 @@ type ProfileInfoPropsType = {
 
 const ProfileInfo: FC<ProfileInfoPropsType> = ({profile}) => {
     /*let {avatar, aboutMe, name} = */
-    if (!profile) {
+    /*if (!profile) {
         return <Loader/>
+    } */
+    if (!profile) {
+        return <div className={s.wall}>
+            <img src={'https://stoqk.com/wp-content/uploads/2017/03/Sea-Beach-Wallpaper-HD.jpg'}/>
+        </div>
     }
     return (
         <>
