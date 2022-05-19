@@ -45,7 +45,7 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
     componentDidMount() {
         let userID = this.props.navigation.params.userID
         if (!userID) {
-            userID = '3'
+            userID = '23597'
         }
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userID).then(response => {
             this.props.setUserProfile(response.data)

@@ -1,8 +1,11 @@
 .header {
-    margin: 0 auto 15px auto;
-    background-color: #0068ff;
-    width: 100%;
-    position: relative;
+    margin: 0 17px 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    background-color: #3981d3;
+    border-radius: 5px;
 }
 
 .header img {
