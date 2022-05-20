@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Nav from "./Components/Nav/Nav";
-import Header from "./Components/Header/Header";
 import { Route, Routes } from "react-router-dom";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
@@ -9,6 +8,8 @@ import Music from "./Components/Music/Music";
 import {DialogsContainerRR} from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/UsersContainer";
 import PageProfileContainer from "./Components/PageProfile/PageProfileContainer";
+import HeaderContainer from "./Components/Header/HeaderCONTAINER";
+
 
 
 
@@ -19,7 +20,7 @@ import PageProfileContainer from "./Components/PageProfile/PageProfileContainer"
 const App= () => {
   return (
       <div className={'app-wrapper'}>
-        <Header/>
+        <HeaderContainer />
           <div className={'app-wrapper-content'}>
               <Nav/>
               <div className={'profile'}>

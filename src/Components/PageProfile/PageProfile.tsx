@@ -11,7 +11,6 @@ type PageProfilePropsType = {
 }
 
 const PageProfile: React.FC<PageProfilePropsType> = ({profile}) => {
-    debugger
     return (
         <div className={s.profile}>
             {/*<ProfileInfo avatar={profile.photos.small} aboutMe={profile.aboutMe} name={profile.fullName}/>*/}
