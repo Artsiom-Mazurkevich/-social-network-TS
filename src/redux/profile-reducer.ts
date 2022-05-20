@@ -74,6 +74,7 @@ export const profileReducer = (state: profilePageType = initialStateForProfilePa
             copy.newPostText = action.newText
             return copy
         case "SET-USER-PROFILE":
+            debugger
             return {...state, profile: action.profile}
         default:
             return state

@@ -17,8 +17,8 @@ type dialogsType = {
 
 const Dialogs: FC<dialogsType> = ({onChangeNewMessage, sendMessage, dialogs, messages, newMessageBody}) => {
 
-    let Dialogs = dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
-    let Messages = messages.map(m => <Message titleMessage={m.message} id={m.id}/>);
+    let Dialogs = dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>);
+    let Messages = messages.map(m => <Message key={m.id} titleMessage={m.message} id={m.id}/>);
     let newMessage = newMessageBody
 
     const onChangeNewMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {

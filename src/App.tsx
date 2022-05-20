@@ -30,7 +30,7 @@ const App= () => {
                           <DialogsContainerRR />
                       }/>
                       <Route path={'/profile'} element={<PageProfileContainer />}/>
-                      <Route path={'/profile/:userID?'} element={<PageProfileContainer />}/>
+                      <Route path={'/profile/:userID'} element={<PageProfileContainer />}/>
                       <Route path={'/users'} element={<UsersContainer/>}/>
                       <Route path={'/news'} element={<News/>}/>
                       <Route path={'/music'} element={<Music/>}/>
