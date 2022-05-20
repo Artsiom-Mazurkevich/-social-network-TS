@@ -18,7 +18,7 @@ export type StateUsersType = {
 
 const initialStateUsers: StateUsersType = {
     items: [],
-    pageSize: 10,
+    pageSize: 6,
     totalCount: 0,
     currentPage: 1,
     isFetching: true
