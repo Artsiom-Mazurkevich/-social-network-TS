@@ -43,7 +43,7 @@ export const UsersPresentational = (props: propsType) => {
                     <div className={s.name}>
                         {u.name}
                     </div>
-                    <div>
+                    <div className={s.status}>
                         {u.status}
                     </div>
                     <div className={s.divbtn}>
