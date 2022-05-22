@@ -3,9 +3,9 @@ import {Pagination} from "@mantine/core";
 import {UsersType} from "../../redux/users-reduser";
 import DefaultImage from '../../images/cat-avatar.d04271ed.gif'
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import s from './Users.module.css'
+import s from './Users.module.css';
 import {Button} from "@mantine/core";
+import {UsersAPI} from "../../api/api";
 
 
 export type propsType = {
@@ -51,23 +51,25 @@ export const UsersPresentational = (props: propsType) => {
                     <div className={s.divbtn}>
                         {u.followed ? <Button onClick={() => {
                                 props.toggleFollowingProgress(true, u.id)
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {withCredentials: true, headers: {'API-KEY': 'b9bcb12e-ec21-423a-a02a-c9a8061be3c5'} })
+                            UsersAPI.unfollowUser(u.id).then(() => {props.unfollow(u.id); props.toggleFollowingProgress(false, u.id)})
+                                /*axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {withCredentials: true, headers: {'API-KEY': 'b9bcb12e-ec21-423a-a02a-c9a8061be3c5'} })
                                     .then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.unfollow(u.id)
                                         }
                                         props.toggleFollowingProgress(false, u.id)
-                                    })
+                                    })*/
                             }} uppercase fullWidth loading={props.followingProgress.some(id => id === u.id)}>unfollow</Button>
                             : <Button onClick={() => {
                                 props.toggleFollowingProgress(true, u.id)
-                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {withCredentials: true, headers: {'API-KEY': 'b9bcb12e-ec21-423a-a02a-c9a8061be3c5'}})
+                                UsersAPI.followToUser(u.id).then(() => {props.follow(u.id); props.toggleFollowingProgress(false, u.id)})
+                                /*axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {withCredentials: true, headers: {'API-KEY': 'b9bcb12e-ec21-423a-a02a-c9a8061be3c5'}})
                                     .then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.follow(u.id)
                                         }
                                         props.toggleFollowingProgress(false, u.id)
-                                    })
+                                    })*/
                             }} uppercase fullWidth loading={props.followingProgress.some(id => id === u.id)}>follow</Button>}
                     </div>
                 </div>

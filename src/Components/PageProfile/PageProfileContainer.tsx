@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import { ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
 import {Params, useLocation, useParams} from "react-router-dom";
+import {UsersAPI} from "../../api/api";
 
 
 
@@ -47,9 +48,10 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
         if (!userID) {
             userID = '23597'
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userID).then(response => {
+        UsersAPI.showUserProfile(userID).then(data => this.props.setUserProfile(data))
+        /*axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userID).then(response => {
             this.props.setUserProfile(response.data)
-        })
+        })*/
     }
 
     render() {

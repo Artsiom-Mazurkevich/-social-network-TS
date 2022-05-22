@@ -22,7 +22,6 @@ type mapStateToProps = {
     isFetching: boolean
     followingProgress: Array<number>
 }
-
 type mapDispatchToProps = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
@@ -32,7 +31,6 @@ type mapDispatchToProps = {
     toggleIsFetching: (isFetching: boolean) => void
     toggleFollowingProgress: (progress: boolean, userId: number) => void
 }
-
 type UsersContainerPropsType = mapStateToProps & mapDispatchToProps
 
 export class UsersAPIComponent extends React.Component<UsersContainerPropsType> {
