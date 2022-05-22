@@ -1,9 +1,8 @@
-
 export type UsersType = {
     followed: boolean
     id: number
     name: string
-    photos: {small: null | string, large: null | string}
+    photos: { small: null | string, large: null | string }
     status: null | string
     uniqueUrlName: null | string
 }
@@ -14,6 +13,7 @@ export type StateUsersType = {
     totalCount: number
     currentPage: number
     isFetching: boolean
+    followingProgress: Array<number>
 }
 
 const initialStateUsers: StateUsersType = {
@@ -21,7 +21,8 @@ const initialStateUsers: StateUsersType = {
     pageSize: 6,
     totalCount: 0,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followingProgress: []
 }
 
 
@@ -43,7 +44,14 @@ export const usersReducers = (state: StateUsersType = initialStateUsers, action:
             return {...state, totalCount: action.totalCount}
         }
         case 'TOGGLE_FETCHING': {
-            return {...state, isFetching: action.isFetching }
+            return {...state, isFetching: action.isFetching}
+        }
+        case 'SET_FOLLOWING_PROGRESS': {
+            return {
+                ...state, followingProgress: action.progress
+                    ? [...state.followingProgress, action.userId]
+                    : state.followingProgress.filter(id => id !== action.userId)
+            }
         }
         default:
             return state
@@ -56,6 +64,7 @@ type ActionsTypes = ReturnType<typeof followAC>
     | ReturnType<typeof setPageAC>
     | ReturnType<typeof setUsersTotalCountAC>
     | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof followingInProgressAC>
 
 
 export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
@@ -64,3 +73,4 @@ export const setUsersAC = (users: Array<UsersType>) => ({type: 'SET_USERS', item
 export const setPageAC = (pageNumber: number) => ({type: 'SET_CURRENT_PAGE', pageNumber} as const)
 export const setUsersTotalCountAC = (totalCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', totalCount} as const)
 export const toggleIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE_FETCHING', isFetching} as const)
+export const followingInProgressAC = (progress: boolean, userId: number) => ({type: 'SET_FOLLOWING_PROGRESS', progress, userId} as const)

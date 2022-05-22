@@ -16,6 +16,8 @@ export type propsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
+    toggleFollowingProgress: (progress: boolean, userId: number) => void
+    followingProgress: Array<number>
 }
 
 
@@ -48,21 +50,25 @@ export const UsersPresentational = (props: propsType) => {
                     </div>
                     <div className={s.divbtn}>
                         {u.followed ? <Button onClick={() => {
+                                props.toggleFollowingProgress(true, u.id)
                                 axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {withCredentials: true, headers: {'API-KEY': 'b9bcb12e-ec21-423a-a02a-c9a8061be3c5'} })
                                     .then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.unfollow(u.id)
                                         }
+                                        props.toggleFollowingProgress(false, u.id)
                                     })
-                            }} uppercase fullWidth>unfollow</Button>
+                            }} uppercase fullWidth loading={props.followingProgress.some(id => id === u.id)}>unfollow</Button>
                             : <Button onClick={() => {
+                                props.toggleFollowingProgress(true, u.id)
                                 axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {withCredentials: true, headers: {'API-KEY': 'b9bcb12e-ec21-423a-a02a-c9a8061be3c5'}})
                                     .then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.follow(u.id)
                                         }
+                                        props.toggleFollowingProgress(false, u.id)
                                     })
-                            }} uppercase fullWidth>follow</Button>}
+                            }} uppercase fullWidth loading={props.followingProgress.some(id => id === u.id)}>follow</Button>}
                     </div>
                 </div>
             </div>)}
