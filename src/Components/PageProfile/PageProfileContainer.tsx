@@ -1,7 +1,6 @@
 import React, {ComponentType} from 'react';
 import s from './PageProfile.module.css';
 import PageProfile from "./PageProfile";
-import axios from "axios";
 import {connect} from "react-redux";
 import { ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";

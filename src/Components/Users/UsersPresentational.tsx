@@ -18,6 +18,8 @@ export type propsType = {
     onPageChanged: (pageNumber: number) => void
     toggleFollowingProgress: (progress: boolean, userId: number) => void
     followingProgress: Array<number>
+    followThunkCR: (userId: number) => void,
+    unfollowThunkCR: (userId: number) => void
 }
 
 
@@ -50,8 +52,9 @@ export const UsersPresentational = (props: propsType) => {
                     </div>
                     <div className={s.divbtn}>
                         {u.followed ? <Button onClick={() => {
-                                props.toggleFollowingProgress(true, u.id)
-                            UsersAPI.unfollowUser(u.id).then(() => {props.unfollow(u.id); props.toggleFollowingProgress(false, u.id)})
+                            props.unfollowThunkCR(u.id)
+                            //     props.toggleFollowingProgress(true, u.id)
+                            // UsersAPI.unfollowUser(u.id).then(() => {props.unfollow(u.id); props.toggleFollowingProgress(false, u.id)})
                                 /*axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {withCredentials: true, headers: {'API-KEY': 'b9bcb12e-ec21-423a-a02a-c9a8061be3c5'} })
                                     .then(response => {
                                         if (response.data.resultCode === 0) {
@@ -61,8 +64,9 @@ export const UsersPresentational = (props: propsType) => {
                                     })*/
                             }} uppercase fullWidth loading={props.followingProgress.some(id => id === u.id)}>unfollow</Button>
                             : <Button onClick={() => {
-                                props.toggleFollowingProgress(true, u.id)
-                                UsersAPI.followToUser(u.id).then(() => {props.follow(u.id); props.toggleFollowingProgress(false, u.id)})
+                                props.followThunkCR(u.id)
+                                // props.toggleFollowingProgress(true, u.id)
+                                // UsersAPI.followToUser(u.id).then(() => {props.follow(u.id); props.toggleFollowingProgress(false, u.id)})
                                 /*axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {withCredentials: true, headers: {'API-KEY': 'b9bcb12e-ec21-423a-a02a-c9a8061be3c5'}})
                                     .then(response => {
                                         if (response.data.resultCode === 0) {

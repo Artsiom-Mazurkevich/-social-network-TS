@@ -1,3 +1,6 @@
+import {UsersAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 export type UsersType = {
     followed: boolean
     id: number
@@ -74,3 +77,31 @@ export const setPageAC = (pageNumber: number) => ({type: 'SET_CURRENT_PAGE', pag
 export const setUsersTotalCountAC = (totalCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', totalCount} as const)
 export const toggleIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE_FETCHING', isFetching} as const)
 export const followingInProgressAC = (progress: boolean, userId: number) => ({type: 'SET_FOLLOWING_PROGRESS', progress, userId} as const)
+
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+   return  (dispatch: Dispatch) => {
+        dispatch(toggleIsFetchingAC(true));
+        UsersAPI.getUsers(currentPage, pageSize).then(response => {
+            dispatch(toggleIsFetchingAC(false));
+            dispatch(setUsersAC(response.items))
+            dispatch(setUsersTotalCountAC(response.totalCount))
+        })
+    }
+}
+
+export const followThunkCreator = (userId: number) => {
+    return  (dispatch: Dispatch) => {
+        dispatch(followingInProgressAC(true, userId))
+        UsersAPI.followToUser(userId)
+            .then(() => {dispatch(followAC(userId));dispatch(followingInProgressAC(false, userId))})
+    }
+}
+
+export const unfollowThunkCreator = (userId: number) => {
+    return  (dispatch: Dispatch) => {
+        dispatch(followingInProgressAC(true, userId))
+        UsersAPI.unfollowUser(userId)
+            .then(() => {dispatch(unfollowAC(userId)); dispatch(followingInProgressAC(false, userId))})
+    }
+}
