@@ -2,8 +2,7 @@ import React, {ChangeEvent, FC} from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {dialogsDataType} from "../../redux/profile-reducer";
-import {messagesType} from "../../redux/dialogs-reducer";
+import {dialogsDataType, messagesType} from "../../redux/dialogs-reducer";
 
 
 

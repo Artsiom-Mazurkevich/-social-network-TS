@@ -1,15 +1,10 @@
 import {Dispatch} from "redux";
-import {authAPI, UsersAPI} from "../api/api";
+import {UsersAPI} from "../api/api";
 
 export type profilePageType = {
     posts: postsDataType[]
     newPostText: string
-    dialogs: dialogsDataType[]
     profile: null | ProfileType
-}
-export type dialogsDataType = {
-    id: number
-    name: string
 }
 export type postsDataType = {
     id: number
@@ -46,12 +41,6 @@ const initialStateForProfilePage: profilePageType = {
         {id: 2, message: "It's my first post", likesCount: 20},
     ],
     newPostText: 'IT-KAMASUTRA',
-    dialogs: [
-        {id: 1, name: 'Artem'},
-        {id: 2, name: 'Dima'},
-        {id: 3, name: 'Alexander'},
-        {id: 4, name: 'Nikolay'},
-    ],
     profile: null
 }
 
@@ -61,23 +50,17 @@ type ActionsType = ReturnType<typeof setUserProfile>
     | ReturnType<typeof addPostAC>
 
 
-export const profileReducer = (state: profilePageType = initialStateForProfilePage, action: ActionsType) => {
+export const profileReducer = (state: profilePageType = initialStateForProfilePage, action: ActionsType):profilePageType => {
     switch (action.type) {
         case 'ADD-POST':
-            //return {...state,posts:[...state.posts].push({id: 5, message: state.newPostText, likesCount: 0}), newPostText:''}
-            let copyState = {...state}
-            copyState.posts = [...state.posts]
-            copyState.posts.push({id: 5, message: state.newPostText, likesCount: 0})
-            copyState.newPostText = ''
-            return copyState
+            return {
+                ...state,
+                posts: [...state.posts, {id: 5, message: state.newPostText, likesCount: ~~(Math.random() * 45)}],
+                newPostText: ''
+            }
         case 'UPDATE-NEW-POST-TEXT':
-            //state.newPostText = action.newText
-            //return {...state}.newPostText = action.newText
-            let copy = {...state}
-            copy.newPostText = action.newText
-            return copy
+            return {...state, newPostText: action.newText}
         case "SET-USER-PROFILE":
-            debugger
             return {...state, profile: action.profile}
         default:
             return state

@@ -1,39 +1,48 @@
-
-export type messages = {
-    messages:messagesType[]
+export type messagesPageType = {
+    dialogs: Array<dialogsDataType>
+    messages: messagesType[]
     newMessageText: string
 }
 export type messagesType = {
     id: number
     message: string
 }
+export type dialogsDataType = {
+    id: number
+    name: string
+}
 
-
-const initialStateForDialogsReducer: messages = {
-     messages:[
-            {id: 1, message: 'hi'},
-            {id: 2, message: 'yo'},
-            {id: 3, message: 'hello world'},
-            {id: 4, message: 'hello world'},
-        ],
-        newMessageText: '',
+const initialStateForDialogsReducer: messagesPageType = {
+    dialogs: [
+        {id: 1, name: 'Artem'},
+        {id: 2, name: 'Dima'},
+        {id: 3, name: 'Alexander'},
+        {id: 4, name: 'Nikolay'},
+    ],
+    messages: [
+        {id: 1, message: 'hi'},
+        {id: 2, message: 'yo'},
+        {id: 3, message: 'hello world'},
+        {id: 4, message: 'hello world'},
+    ],
+    newMessageText: '',
 }
 
 
-export const dialogsReducer = (state: messages = initialStateForDialogsReducer, action: updateNewTextMessageActionType | sendMessageActionType) => {
+export const dialogsReducer = (state: messagesPageType = initialStateForDialogsReducer, action: updateNewTextMessageActionType | sendMessageActionType) => {
     switch (action.type) {
         case 'updateNewTextMessage':
-             const copy = {...state};
-             copy.newMessageText = action.newTextMessage
-                return copy
+            return {...state, newMessageText: action.newTextMessage}
         case 'sendMessage':
-            const currentText = state.newMessageText
-            const copyState = {...state, newMessageText:'',messages: [...state.messages, {id: 5, message: currentText}]}
-            return copyState
-        default: return state
+            return {
+                ...state,
+                messages: [...state.messages, {id: 5, message: state.newMessageText}],
+                newMessageText: ''
+            }
+        default:
+            return state
     }
 }
-
 
 
 export type updateNewTextMessageActionType = {
@@ -43,5 +52,8 @@ export type updateNewTextMessageActionType = {
 export type sendMessageActionType = {
     type: 'sendMessage'
 }
-export const updateNewTextMessageAC = (newTextForMessageField: string):updateNewTextMessageActionType => ({type: 'updateNewTextMessage', newTextMessage: newTextForMessageField})
+export const updateNewTextMessageAC = (newTextForMessageField: string): updateNewTextMessageActionType => ({
+    type: 'updateNewTextMessage',
+    newTextMessage: newTextForMessageField
+})
 export const sendMessageAC = (): sendMessageActionType => ({type: 'sendMessage'})

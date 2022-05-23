@@ -1,9 +1,9 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {messagesType, sendMessageAC, updateNewTextMessageAC} from "../../redux/dialogs-reducer";
+import {dialogsDataType, messagesType, sendMessageAC, updateNewTextMessageAC} from "../../redux/dialogs-reducer";
 import {AppStateType} from "../../redux/store";
-import {dialogsDataType} from "../../redux/profile-reducer";
+
 
 
 
@@ -15,9 +15,9 @@ type ObjFromMapState = {
 
 const mapStateToProps = (state: AppStateType): ObjFromMapState => {
     return {
-        dialogs: state.profilePage['dialogs'],
-        messages: state.messagesPage['messages'],
-        newMessageBody: state.messagesPage['newMessageText'],
+        dialogs: state.messagesPage.dialogs,
+        messages: state.messagesPage.messages,
+        newMessageBody: state.messagesPage.newMessageText,
     }
 }
 const mapDispatchToProps = (dispatch: any) => {
