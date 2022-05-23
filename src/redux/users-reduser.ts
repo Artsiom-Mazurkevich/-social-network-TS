@@ -79,6 +79,10 @@ export const toggleIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE_FETCH
 export const followingInProgressAC = (progress: boolean, userId: number) => ({type: 'SET_FOLLOWING_PROGRESS', progress, userId} as const)
 
 
+
+
+
+
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
    return  (dispatch: Dispatch) => {
         dispatch(toggleIsFetchingAC(true));

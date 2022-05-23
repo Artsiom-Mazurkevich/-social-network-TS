@@ -4,15 +4,10 @@ import {AppStateType} from "../../redux/store";
 import {
     followAC, followingInProgressAC, followThunkCreator, getUsersThunkCreator,
     setPageAC,
-    setUsersAC,
-    setUsersTotalCountAC,
-    toggleIsFetchingAC,
     unfollowAC, unfollowThunkCreator, UsersType,
 } from "../../redux/users-reduser";
 import {UsersPresentational} from "./UsersPresentational";
 import {Loader} from "@mantine/core";
-import {UsersAPI} from "../../api/api";
-import {Dispatch} from "redux";
 
 
 type mapStateToProps = {

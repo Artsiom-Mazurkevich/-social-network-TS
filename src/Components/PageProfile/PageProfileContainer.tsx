@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import s from './PageProfile.module.css';
 import PageProfile from "./PageProfile";
 import {connect} from "react-redux";
-import { ProfileType, setUserProfile} from "../../redux/profile-reducer";
+import {getUserProfile, ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
 import {Params, useLocation, useParams} from "react-router-dom";
 import {UsersAPI} from "../../api/api";
@@ -35,7 +35,7 @@ type mapStatePropsType = {
 }
 
 type mapDispatchPropsType = {
-    setUserProfile: (profile: ProfileType) => void
+    getUserProfile: (userId: string) => void
 }
 
 type PageProfileContainerPropsType = mapStatePropsType & mapDispatchPropsType
@@ -45,9 +45,10 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
     componentDidMount() {
         let userID = this.props.navigation.params.userID
         if (!userID) {
-            userID = '23597'
+            userID = "23597"
         }
-        UsersAPI.showUserProfile(userID).then(data => this.props.setUserProfile(data))
+        /*UsersAPI.showUserProfile(userID).then(data => this.props.setUserProfile(data))*/
+         this.props.getUserProfile(userID)
         /*axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userID).then(response => {
             this.props.setUserProfile(response.data)
         })*/
@@ -84,4 +85,4 @@ const WithRouterContainer = WithRouter(PageProfileContainer)
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => ({profile: state.profilePage.profile})
 
-export default connect(mapStateToProps, {setUserProfile})(WithRouterContainer)
+export default connect(mapStateToProps, {getUserProfile})(WithRouterContainer)

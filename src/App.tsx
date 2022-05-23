@@ -20,7 +20,7 @@ import HeaderContainer from "./Components/Header/HeaderCONTAINER";
 const App= () => {
   return (
       <div className={'app-wrapper'}>
-        <HeaderContainer />
+        <HeaderContainer/>
           <div className={'app-wrapper-content'}>
               <Nav/>
               <div className={'profile'}>

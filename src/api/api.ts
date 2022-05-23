@@ -32,3 +32,18 @@ export const UsersAPI = {
         return instance.get(`profile/${userId}`).then(response => response.data)
     }
 }
+
+
+export const authAPI = {
+    /*me() {
+        debugger
+        return instance.get('auth/me').then((response) => {
+            if (response.data.resultCode === 0) {
+                return response.data
+            }
+        })
+    }*/
+    me() {
+        return instance.get('auth/me')
+    }
+}

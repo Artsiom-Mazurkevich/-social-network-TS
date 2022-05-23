@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI, UsersAPI} from "../api/api";
+
 export type profilePageType = {
     posts: postsDataType[]
     newPostText: string
@@ -82,8 +85,10 @@ export const profileReducer = (state: profilePageType = initialStateForProfilePa
 }
 
 export const addPostAC = () => ({type: 'ADD-POST'} as const)
-export const updateNewPostTextAC = (postText: string) => ({
-    type: 'UPDATE-NEW-POST-TEXT',
-    newText: postText
-} as const)
+export const updateNewPostTextAC = (postText: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: postText} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
+
+
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+    UsersAPI.showUserProfile(userId).then(data => dispatch(setUserProfile(data)));
+}

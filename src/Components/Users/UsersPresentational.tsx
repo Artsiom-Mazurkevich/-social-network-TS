@@ -5,7 +5,6 @@ import DefaultImage from '../../images/cat-avatar.d04271ed.gif'
 import {NavLink} from "react-router-dom";
 import s from './Users.module.css';
 import {Button} from "@mantine/core";
-import {UsersAPI} from "../../api/api";
 
 
 export type propsType = {

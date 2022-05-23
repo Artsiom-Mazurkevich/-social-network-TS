@@ -2,22 +2,24 @@ import React from 'react';
 import Header from "./Header";
 import {AppStateType} from "../../redux/store";
 import {connect} from "react-redux";
-import {DataAuthType, setAuthUserData} from "../../redux/auth-reducer";
-import axios from "axios";
+import {DataAuthType, getAuthUserDataThunkCreator} from "../../redux/auth-reducer";
+
 
 
 type mapDispatchPropsType = {
-    setAuthUserData: (data: DataAuthType) => void
+    getAuthUserDataThunkCreator: () => void
 }
 
 class HeaderContainer extends React.Component<{dataAuth: DataAuthType} & mapDispatchPropsType> {
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true}).then((response) => {
-            if (response.data.resultCode === 0) {
-                const data = response.data.data
-                this.props.setAuthUserData(data)
-            }
-        })
+        this.props.getAuthUserDataThunkCreator()
+        /*authAPI.me().then((data) => this.props.setAuthUserData(data));*/
+        // axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true}).then((response) => {
+        //     if (response.data.resultCode === 0) {
+        //         const data = response.data.data
+        //         this.props.setAuthUserData(data)
+        //     }
+        // })
     }
 
     render() {
@@ -30,7 +32,7 @@ class HeaderContainer extends React.Component<{dataAuth: DataAuthType} & mapDisp
 const mapStateToProps = (state: AppStateType):{dataAuth: DataAuthType} => ({dataAuth: state.auth})
 
 
-export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer)
+export default connect(mapStateToProps, {getAuthUserDataThunkCreator})(HeaderContainer)
 
 
 
