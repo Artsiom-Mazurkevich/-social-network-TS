@@ -29,7 +29,7 @@ const initialStateForDialogsReducer: messagesPageType = {
 }
 
 
-export const dialogsReducer = (state: messagesPageType = initialStateForDialogsReducer, action: updateNewTextMessageActionType | sendMessageActionType) => {
+export const dialogsReducer = (state: messagesPageType = initialStateForDialogsReducer, action: ActionsType) => {
     switch (action.type) {
         case 'updateNewTextMessage':
             return {...state, newMessageText: action.newTextMessage}
@@ -44,16 +44,13 @@ export const dialogsReducer = (state: messagesPageType = initialStateForDialogsR
     }
 }
 
+type ActionsType = ReturnType<typeof updateNewTextMessageAC> | ReturnType<typeof sendMessageAC>
 
-export type updateNewTextMessageActionType = {
-    type: 'updateNewTextMessage'
-    newTextMessage: string
-}
-export type sendMessageActionType = {
-    type: 'sendMessage'
-}
-export const updateNewTextMessageAC = (newTextForMessageField: string): updateNewTextMessageActionType => ({
+
+
+
+export const updateNewTextMessageAC = (newTextForMessageField: string) => ({
     type: 'updateNewTextMessage',
     newTextMessage: newTextForMessageField
-})
-export const sendMessageAC = (): sendMessageActionType => ({type: 'sendMessage'})
+} as const)
+export const sendMessageAC = () => ({type: 'sendMessage'} as const)

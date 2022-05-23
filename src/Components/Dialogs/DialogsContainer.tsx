@@ -11,6 +11,7 @@ type ObjFromMapState = {
     dialogs: Array<dialogsDataType>
     messages: Array<messagesType>
     newMessageBody: string
+    isAuth: boolean
 }
 
 const mapStateToProps = (state: AppStateType): ObjFromMapState => {
@@ -18,6 +19,7 @@ const mapStateToProps = (state: AppStateType): ObjFromMapState => {
         dialogs: state.messagesPage.dialogs,
         messages: state.messagesPage.messages,
         newMessageBody: state.messagesPage.newMessageText,
+        isAuth: state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: any) => {
