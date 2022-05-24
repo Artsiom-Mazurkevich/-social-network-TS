@@ -9,6 +9,7 @@ import {
 import {UsersPresentational} from "./UsersPresentational";
 import {Loader} from "@mantine/core";
 import {isAuthRedirectHoc} from "../../HOC/IsAuthRedirectHOC";
+import {compose} from "redux";
 
 
 type mapStateToProps = {
@@ -100,6 +101,7 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 
+
 /*const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         follow: (userId: number) => {
@@ -126,19 +128,34 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }*/
 
-const UsersContainer = connect(mapStateToProps, {
-    follow: followAC,
-    unfollow: unfollowAC,
-    /*setUsers: setUsersAC,*/
-    setCurrentPage: setPageAC,
-    /*setTotalUsersCount: setUsersTotalCountAC,*/
-    /*toggleIsFetching: toggleIsFetchingAC,*/
-    toggleFollowingProgress: followingInProgressAC,
-    getUsersThunkCR: getUsersThunkCreator,
-    followThunkCR: followThunkCreator,
-    unfollowThunkCR: unfollowThunkCreator
+// const UsersContainer = connect(mapStateToProps, {
+//     follow: followAC,
+//     unfollow: unfollowAC,
+//     /*setUsers: setUsersAC,*/
+//     setCurrentPage: setPageAC,
+//     /*setTotalUsersCount: setUsersTotalCountAC,*/
+//     /*toggleIsFetching: toggleIsFetchingAC,*/
+//     toggleFollowingProgress: followingInProgressAC,
+//     getUsersThunkCR: getUsersThunkCreator,
+//     followThunkCR: followThunkCreator,
+//     unfollowThunkCR: unfollowThunkCreator
+//
+// })(UsersAPIComponent)
+//
+// isAuthRedirectHoc (UsersContainer)
 
-})(UsersAPIComponent)
-
-export default isAuthRedirectHoc (UsersContainer)
-
+export default compose<React.ComponentType>(
+    isAuthRedirectHoc,
+    connect(mapStateToProps, {
+        follow: followAC,
+        unfollow: unfollowAC,
+        /*setUsers: setUsersAC,*/
+        setCurrentPage: setPageAC,
+        /*setTotalUsersCount: setUsersTotalCountAC,*/
+        /*toggleIsFetching: toggleIsFetchingAC,*/
+        toggleFollowingProgress: followingInProgressAC,
+        getUsersThunkCR: getUsersThunkCreator,
+        followThunkCR: followThunkCreator,
+        unfollowThunkCR: unfollowThunkCreator
+    }))
+(UsersAPIComponent)

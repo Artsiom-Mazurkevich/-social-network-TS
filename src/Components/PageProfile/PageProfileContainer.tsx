@@ -6,6 +6,7 @@ import {getUserProfile, ProfileType } from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
 import {Params, useLocation, useParams} from "react-router-dom";
 import {isAuthRedirectHoc} from "../../HOC/IsAuthRedirectHOC";
+import {compose} from "redux";
 
 
 type WithRouterType<T extends string> = { location: Location, params: Readonly<Params<T>> }
@@ -47,11 +48,18 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
     };
 }
 
-const WithRouterContainer = WithRouter(PageProfileContainer)
+// const WithRouterContainer = WithRouter(PageProfileContainer)
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => ({
     profile: state.profilePage.profile,
     isAuth: state.auth.isAuth
 })
 
-export default isAuthRedirectHoc (connect(mapStateToProps, {getUserProfile})(WithRouterContainer))
+// export default isAuthRedirectHoc (connect(mapStateToProps, {getUserProfile})(WithRouterContainer))
+
+
+export default compose<React.ComponentType>(
+    isAuthRedirectHoc,
+    connect(mapStateToProps, {getUserProfile}),
+    WithRouter
+)(PageProfileContainer)
