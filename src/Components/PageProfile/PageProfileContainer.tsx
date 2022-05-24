@@ -4,7 +4,8 @@ import PageProfile from "./PageProfile";
 import {connect} from "react-redux";
 import {getUserProfile, ProfileType } from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
-import {Navigate, Params, useLocation, useParams} from "react-router-dom";
+import {Params, useLocation, useParams} from "react-router-dom";
+import {isAuthRedirectHoc} from "../../HOC/IsAuthRedirectHOC";
 
 
 type WithRouterType<T extends string> = { location: Location, params: Readonly<Params<T>> }
@@ -40,9 +41,7 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
     }
 
     render() {
-        return !this.props.isAuth
-            ? <Navigate to={'/login'}/>
-            : <div className={s.profile}>
+        return <div className={s.profile}>
                 <PageProfile profile={this.props.profile}/>
             </div>
     };
@@ -55,4 +54,4 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => ({
     isAuth: state.auth.isAuth
 })
 
-export default connect(mapStateToProps, {getUserProfile})(WithRouterContainer)
+export default isAuthRedirectHoc (connect(mapStateToProps, {getUserProfile})(WithRouterContainer))

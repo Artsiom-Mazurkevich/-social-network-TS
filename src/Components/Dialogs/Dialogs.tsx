@@ -3,7 +3,6 @@ import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {dialogsDataType, messagesType} from "../../redux/dialogs-reducer";
-import {Navigate} from "react-router-dom";
 
 
 type DialogsType = {
@@ -12,7 +11,6 @@ type DialogsType = {
     dialogs: dialogsDataType[]
     messages: messagesType[]
     newMessageBody: string
-    isAuth: boolean
 }
 
 const Dialogs: FC<DialogsType> = (props) => {
@@ -23,10 +21,7 @@ const Dialogs: FC<DialogsType> = (props) => {
         dialogs,
         messages,
         newMessageBody,
-        isAuth
     } = props
-
-    if (!isAuth) return <Navigate to={'/login'}/>
 
     let Dialogs = dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>);
     let Messages = messages.map(m => <Message key={m.id} titleMessage={m.message} id={m.id}/>);

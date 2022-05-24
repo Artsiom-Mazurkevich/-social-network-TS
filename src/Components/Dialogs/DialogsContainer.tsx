@@ -3,6 +3,7 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {dialogsDataType, messagesType, sendMessageAC, updateNewTextMessageAC} from "../../redux/dialogs-reducer";
 import {AppStateType} from "../../redux/store";
+import {isAuthRedirectHoc} from "../../HOC/IsAuthRedirectHOC";
 
 
 
@@ -11,7 +12,6 @@ type ObjFromMapState = {
     dialogs: Array<dialogsDataType>
     messages: Array<messagesType>
     newMessageBody: string
-    isAuth: boolean
 }
 
 const mapStateToProps = (state: AppStateType): ObjFromMapState => {
@@ -19,7 +19,6 @@ const mapStateToProps = (state: AppStateType): ObjFromMapState => {
         dialogs: state.messagesPage.dialogs,
         messages: state.messagesPage.messages,
         newMessageBody: state.messagesPage.newMessageText,
-        isAuth: state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: any) => {
@@ -32,6 +31,9 @@ const mapDispatchToProps = (dispatch: any) => {
         }
     }
 }
+export default isAuthRedirectHoc (connect(mapStateToProps, mapDispatchToProps)(Dialogs))  //new version
+//export const DialogsContainerRR = connect(mapStateToProps, mapDispatchToProps)(Dialogs)// old version
 
-export const DialogsContainerRR = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+
+
 

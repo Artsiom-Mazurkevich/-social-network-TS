@@ -8,6 +8,7 @@ import {
 } from "../../redux/users-reduser";
 import {UsersPresentational} from "./UsersPresentational";
 import {Loader} from "@mantine/core";
+import {isAuthRedirectHoc} from "../../HOC/IsAuthRedirectHOC";
 
 
 type mapStateToProps = {
@@ -125,7 +126,7 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }*/
 
-export const UsersContainer = connect(mapStateToProps, {
+const UsersContainer = connect(mapStateToProps, {
     follow: followAC,
     unfollow: unfollowAC,
     /*setUsers: setUsersAC,*/
@@ -138,4 +139,6 @@ export const UsersContainer = connect(mapStateToProps, {
     unfollowThunkCR: unfollowThunkCreator
 
 })(UsersAPIComponent)
+
+export default isAuthRedirectHoc (UsersContainer)
 
