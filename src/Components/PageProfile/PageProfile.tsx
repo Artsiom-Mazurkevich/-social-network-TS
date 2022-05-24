@@ -13,7 +13,6 @@ type PageProfilePropsType = {
 const PageProfile: React.FC<PageProfilePropsType> = ({profile}) => {
     return (
         <div className={s.profile}>
-            {/*<ProfileInfo avatar={profile.photos.small} aboutMe={profile.aboutMe} name={profile.fullName}/>*/}
             <ProfileInfo profile={profile}/>
             <MyPostsContainerRR />
         </div>
