@@ -8,12 +8,14 @@ import {ProfileType} from "../../redux/profile-reducer";
 
 type PageProfilePropsType = {
     profile: ProfileType | null
+    status: string
+    updateStatus: (status: string) => void
 }
 
-const PageProfile: React.FC<PageProfilePropsType> = ({profile}) => {
+const PageProfile: React.FC<PageProfilePropsType> = ({profile, status, updateStatus}) => {
     return (
         <div className={s.profile}>
-            <ProfileInfo profile={profile}/>
+            <ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
             <MyPostsContainerRR />
         </div>
     );

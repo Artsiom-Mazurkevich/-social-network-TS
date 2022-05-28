@@ -7,10 +7,12 @@ import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null
+    status: string
+    updateStatus: (status: string) => void
 }
 
 
-const ProfileInfo: FC<ProfileInfoPropsType> = ({profile}) => {
+const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) => {
 
     return !profile
         ? <div className={s.wall}>
@@ -21,7 +23,7 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({profile}) => {
                 <img src={'https://stoqk.com/wp-content/uploads/2017/03/Sea-Beach-Wallpaper-HD.jpg'}/>
             </div>
             <div>
-                <ProfileStatus status={'samurai'}/>
+                <ProfileStatus status={status} updateStatus={ updateStatus }/>
                 <img src={profile.photos.small !== null ? profile.photos.small : DefaultAvatar} alt="avatar" width={45}/>
                 <div>About Me: {profile.aboutMe}</div>
                 <p>Name: {profile.fullName}</p>

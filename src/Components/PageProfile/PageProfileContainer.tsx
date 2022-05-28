@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import s from './PageProfile.module.css';
 import PageProfile from "./PageProfile";
 import {connect} from "react-redux";
-import {getUserProfile, ProfileType } from "../../redux/profile-reducer";
+import {getStatusThunk, getUserProfile, ProfileType, updateStatusThunk} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
 import {Params, useLocation, useParams} from "react-router-dom";
 import {isAuthRedirectHoc} from "../../HOC/IsAuthRedirectHOC";
@@ -10,8 +10,12 @@ import {compose} from "redux";
 
 
 type WithRouterType<T extends string> = { location: Location, params: Readonly<Params<T>> }
-type mapStatePropsType = { profile: ProfileType | null, isAuth: boolean }
-type mapDispatchPropsType = { getUserProfile: (userId: string) => void }
+type mapStatePropsType = { profile: ProfileType | null, isAuth: boolean, status: string }
+type mapDispatchPropsType = {
+    getUserProfile: (userId: string) => void
+    getStatusThunk: (userId: string) => void
+    updateStatusThunk: (status: string) => void
+}
 type PageProfileContainerPropsType = mapStatePropsType & mapDispatchPropsType
 
 const WithRouter = (WrapperComponent: ComponentType<any>) => {
@@ -39,11 +43,12 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
             userID = "23597"
         }
         this.props.getUserProfile(userID)
+        this.props.getStatusThunk(userID)
     }
 
     render() {
         return <div className={s.profile}>
-                <PageProfile profile={this.props.profile}/>
+                <PageProfile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatusThunk}/>
             </div>
     };
 }
@@ -52,7 +57,8 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => ({
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    status: state.profilePage.status,
 })
 
 // export default isAuthRedirectHoc (connect(mapStateToProps, {getUserProfile})(WithRouterContainer))
@@ -60,6 +66,6 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => ({
 
 export default compose<React.ComponentType>(
     isAuthRedirectHoc,
-    connect(mapStateToProps, {getUserProfile}),
+    connect(mapStateToProps, {getUserProfile, getStatusThunk, updateStatusThunk}),
     WithRouter
 )(PageProfileContainer)
