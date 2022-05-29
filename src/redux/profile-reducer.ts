@@ -43,7 +43,7 @@ const initialStateForProfilePage: profilePageType = {
     ],
     newPostText: 'IT-KAMASUTRA',
     profile: null,
-    status: 'dfdfg'
+    status: ''
 }
 
 
@@ -84,13 +84,12 @@ export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
 
 export const getStatusThunk = (userId: string) => (dispatch: Dispatch) => {
   profileAPI.getStatus(userId).then(res => {
-      debugger
       dispatch(setStatusAC(res.data))
   })
 }
 
 export const updateStatusThunk = (status: string) => (dispatch: Dispatch) => {
     profileAPI.updateStatus(status).then(res => {
-        res.data.resultCode === 0 ? dispatch(setStatusAC(res.data)) : console.log('error, profile-reducer 95')
+        res.data.resultCode === 0 ? dispatch(setStatusAC(status)) : console.log('error, profile-reducer 95')
     })
 }

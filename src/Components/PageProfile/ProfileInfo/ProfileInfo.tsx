@@ -23,7 +23,7 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) 
                 <img src={'https://stoqk.com/wp-content/uploads/2017/03/Sea-Beach-Wallpaper-HD.jpg'}/>
             </div>
             <div>
-                <ProfileStatus status={status} updateStatus={ updateStatus }/>
+                <div><ProfileStatus status={status} updateStatus={updateStatus}/></div>
                 <img src={profile.photos.small !== null ? profile.photos.small : DefaultAvatar} alt="avatar" width={45}/>
                 <div>About Me: {profile.aboutMe}</div>
                 <p>Name: {profile.fullName}</p>
