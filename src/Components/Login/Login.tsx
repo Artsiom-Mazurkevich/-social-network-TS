@@ -1,16 +1,22 @@
 import React from 'react';
 import {Button, Container, Input, Paper} from "@mantine/core";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 export const Login = () => {
-    const onSubmit = (formData: any) => {
+    const onSubmit = (formData: FormDataType) => {
         console.log(formData)
     }
   return <ReduxLoginForm onSubmit={onSubmit}/>
 }
 
 
-const LoginForm = (props: any) => {
+type FormDataType = {
+    login: string
+    password: string
+    rememberMe: boolean
+}
+
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <Container size={420} my={40}>
             <Paper withBorder shadow="md" p={30} mt={30} radius="md">
@@ -22,7 +28,7 @@ const LoginForm = (props: any) => {
                         <Field placeholder={'Password'} name={'password'} component={'input'}/>
                     </div>
                     <div>
-                        <Field type={'checkbox'} name={'remember me'} placeholder={'remember me'} component={'input'}/>
+                        <Field type={'checkbox'} name={'rememberMe'} placeholder={'rememberMe'} component={'input'}/>
                     </div>
                     <div>
                         <Button type={'submit'} fullWidth>login</Button>
@@ -33,6 +39,6 @@ const LoginForm = (props: any) => {
     );
 };
 
-const ReduxLoginForm = reduxForm({form: 'login'})(LoginForm)
+const ReduxLoginForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 
