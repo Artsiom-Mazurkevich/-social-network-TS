@@ -1,29 +1,31 @@
+import {v1} from "uuid";
+
 export type messagesPageType = {
     dialogs: Array<dialogsDataType>
     messages: messagesType[]
     newMessageText: string
 }
 export type messagesType = {
-    id: number
+    id: string
     message: string
 }
 export type dialogsDataType = {
-    id: number
+    id: string
     name: string
 }
 
 const initialStateForDialogsReducer: messagesPageType = {
     dialogs: [
-        {id: 1, name: 'Artem'},
-        {id: 2, name: 'Dima'},
-        {id: 3, name: 'Alexander'},
-        {id: 4, name: 'Nikolay'},
+        {id: v1(), name: 'Artem'},
+        {id: v1(), name: 'Dima'},
+        {id: v1(), name: 'Alexander'},
+        {id: v1(), name: 'Nikolay'},
     ],
     messages: [
-        {id: 1, message: 'hi'},
-        {id: 2, message: 'yo'},
-        {id: 3, message: 'hello world'},
-        {id: 4, message: 'hello world'},
+        {id: v1(), message: 'hi'},
+        {id: v1(), message: 'yo'},
+        {id: v1(), message: 'hello world'},
+        {id: v1(), message: 'hello world'},
     ],
     newMessageText: '',
 }
@@ -31,12 +33,10 @@ const initialStateForDialogsReducer: messagesPageType = {
 
 export const dialogsReducer = (state: messagesPageType = initialStateForDialogsReducer, action: ActionsType) => {
     switch (action.type) {
-        case 'updateNewTextMessage':
-            return {...state, newMessageText: action.newTextMessage}
         case 'sendMessage':
             return {
                 ...state,
-                messages: [...state.messages, {id: 5, message: state.newMessageText}],
+                messages: [...state.messages, {id: v1(), message: action.messageBody}],
                 newMessageText: ''
             }
         default:
@@ -44,13 +44,10 @@ export const dialogsReducer = (state: messagesPageType = initialStateForDialogsR
     }
 }
 
-type ActionsType = ReturnType<typeof updateNewTextMessageAC> | ReturnType<typeof sendMessageAC>
+type ActionsType = ReturnType<typeof sendMessageAC>
 
 
 
 
-export const updateNewTextMessageAC = (newTextForMessageField: string) => ({
-    type: 'updateNewTextMessage',
-    newTextMessage: newTextForMessageField
-} as const)
-export const sendMessageAC = () => ({type: 'sendMessage'} as const)
+
+export const sendMessageAC = (messageBody: string) => ({type: 'sendMessage', messageBody} as const)

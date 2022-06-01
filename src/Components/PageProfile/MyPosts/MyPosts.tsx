@@ -1,41 +1,45 @@
 import React, {FC} from 'react';
 import Post from "./Post/Post";
 import {postsDataType} from "../../../redux/profile-reducer";
-
+import {Field, reduxForm} from "redux-form";
 
 
 type myPostsPropsType = {
-    updateNewPostText: (newPostElement: string) => void
-    addPost: () => void
+    addPost: (newPostText: string) => void
     posts: postsDataType[]
-    newPostText: string
 }
 
-export const MyPosts: FC<myPostsPropsType> = ({updateNewPostText, addPost, posts, newPostText}) => {
+export const MyPosts: FC<myPostsPropsType> = ({addPost, posts}) => {
 
     let PostsElements = posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likesCount}/>);
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
-    const onAddPost = () => {
+    const onAddPost = (values: any) => {
 
-        addPost()
-    }
-
-    const onPostChange = () => {
-        let text: string = newPostElement.current?.value!;
-        updateNewPostText(text)
+        addPost(values.PostBody)
     }
 
     return (
         <div>
             My posts
-            <div>
+            <FormPostRedux onSubmit={onAddPost}/>
+            {/*<div>
                 <textarea ref={newPostElement} value={newPostText} onChange={onPostChange}/>
                 <button onClick={onAddPost}>Add post</button>
-            </div>
+            </div>*/}
             <div className={'posts'}>
                 {PostsElements}
             </div>
         </div>
     );
 };
+
+
+const FormAddPost = (props: any) => {
+    return <form onSubmit={props.handleSubmit}>
+        <Field component={'textarea'} name={'PostBody'}/>
+        <button>Add post</button>
+    </form>
+}
+
+const FormPostRedux = reduxForm({form: 'post'})(FormAddPost)

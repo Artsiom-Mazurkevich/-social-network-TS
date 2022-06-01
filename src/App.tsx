@@ -30,7 +30,7 @@ const App= () => {
                              element={
                           <IsAuthRedirectDialogsContainerHOC />
                       }/>
-                      <Route path={'/profile'} element={<IsAuthRedirectPageProfileContainerHOC />}/>
+                      <Route path={'/profile'} element={<IsAuthRedirectPageProfileContainerHOC/>}/>
                       <Route path={'/profile/:userID'} element={<IsAuthRedirectPageProfileContainerHOC />}/>
                       <Route path={'/users'} element={<IsAuthRedirectUsersContainerHOC/>}/>
                       <Route path={'/news'} element={<News/>}/>

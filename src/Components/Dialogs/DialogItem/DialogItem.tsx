@@ -4,7 +4,7 @@ import React, {FC} from "react";
 
 export type DialogItemPropsType = {
     name: string
-    id: number
+    id: string
 };
 
 

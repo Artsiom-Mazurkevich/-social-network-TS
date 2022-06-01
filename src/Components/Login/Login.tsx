@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Container, Input, Paper} from "@mantine/core";
+import {Button, Container, Paper} from "@mantine/core";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 export const Login = () => {

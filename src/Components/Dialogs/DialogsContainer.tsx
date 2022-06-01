@@ -1,7 +1,7 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {dialogsDataType, messagesType, sendMessageAC, updateNewTextMessageAC} from "../../redux/dialogs-reducer";
+import {dialogsDataType, messagesType, sendMessageAC} from "../../redux/dialogs-reducer";
 import {AppStateType} from "../../redux/store";
 import {isAuthRedirectHoc} from "../../HOC/IsAuthRedirectHOC";
 import {compose} from "redux";
@@ -22,11 +22,8 @@ const mapStateToProps = (state: AppStateType): ObjFromMapState => {
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        onChangeNewMessage: (text: string) => {
-            dispatch(updateNewTextMessageAC(text))
-        },
-        sendMessage: () => {
-            dispatch(sendMessageAC())
+        sendMessage: (messageBody: string) => {
+            dispatch(sendMessageAC(messageBody))
         }
     }
 }

@@ -3,7 +3,7 @@ import React from "react";
 
 export type MessagePropsType = {
     titleMessage: string
-    id: number
+    id: string
 };
 
 
