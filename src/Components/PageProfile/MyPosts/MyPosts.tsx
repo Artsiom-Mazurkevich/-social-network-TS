@@ -2,6 +2,9 @@ import React, {FC} from 'react';
 import Post from "./Post/Post";
 import {postsDataType} from "../../../redux/profile-reducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, requiredField} from "../../../ValidationRules/validation";
+import {Textarea} from "@mantine/core";
+import ReduxTextarea from "../../../ValidationRules/ReduxTextarea";
 
 
 type myPostsPropsType = {
@@ -35,19 +38,21 @@ export const MyPosts: FC<myPostsPropsType> = ({addPost, posts}) => {
 };
 
 
-
-
-
 type FormDataType = {
     postBody: string
 }
 
-
+const validationMaxLength = maxLengthCreator(30)
 const FormAddPost: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-    return <form onSubmit={props.handleSubmit}>
-        <Field component={'textarea'} name={'postBody'}/>
-        <button>Add post</button>
-    </form>
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field component={'textarea'}
+                   name={'postBody'}
+                   validate={[requiredField, validationMaxLength]}
+            />
+            <button>Add post</button>
+        </form>
+    )
 }
 
 const FormPostRedux = reduxForm<FormDataType>({form: 'post'})(FormAddPost)
