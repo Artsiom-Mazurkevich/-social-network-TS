@@ -3,7 +3,7 @@ import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {dialogsDataType, messagesType} from "../../redux/dialogs-reducer";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Button} from "@mantine/core";
 
 
@@ -26,8 +26,8 @@ const Dialogs: FC<DialogsType> = (props) => {
     let Dialogs = dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>);
     let Messages = messages.map(m => <Message key={m.id} titleMessage={m.message} id={m.id}/>);
 
-    const Submit = (values: any) => {
-        sendMessage(values.MessageBody)
+    const Submit = (values: FormDataType) => {
+        sendMessage(values.messageBody)
     }
 
     return (
@@ -44,11 +44,16 @@ const Dialogs: FC<DialogsType> = (props) => {
 };
 
 
-const AddMessageForm = (props: any) => {
+type FormDataType = {
+    messageBody: string
+}
+
+
+const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={'textarea'} name={'MessageBody'} placeholder={'Enter your message'} />
+                <Field component={'textarea'} name={'messageBody'} placeholder={'Enter your message'} />
             </div>
             <div>
                 <Button type={'submit'}>Send</Button>
@@ -57,6 +62,6 @@ const AddMessageForm = (props: any) => {
     )
 }
 
-const AddMessageFormRedux = reduxForm({form: 'DialogAddMessageForm'})(AddMessageForm)
+const AddMessageFormRedux = reduxForm<FormDataType>({form: 'DialogAddMessageForm'})(AddMessageForm)
 
 export default Dialogs;

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import Post from "./Post/Post";
 import {postsDataType} from "../../../redux/profile-reducer";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 
 type myPostsPropsType = {
@@ -14,9 +14,9 @@ export const MyPosts: FC<myPostsPropsType> = ({addPost, posts}) => {
     let PostsElements = posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likesCount}/>);
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
-    const onAddPost = (values: any) => {
+    const onAddPost = (values: FormDataType) => {
 
-        addPost(values.PostBody)
+        addPost(values.postBody)
     }
 
     return (
@@ -35,11 +35,19 @@ export const MyPosts: FC<myPostsPropsType> = ({addPost, posts}) => {
 };
 
 
-const FormAddPost = (props: any) => {
+
+
+
+type FormDataType = {
+    postBody: string
+}
+
+
+const FormAddPost: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return <form onSubmit={props.handleSubmit}>
-        <Field component={'textarea'} name={'PostBody'}/>
+        <Field component={'textarea'} name={'postBody'}/>
         <button>Add post</button>
     </form>
 }
 
-const FormPostRedux = reduxForm({form: 'post'})(FormAddPost)
+const FormPostRedux = reduxForm<FormDataType>({form: 'post'})(FormAddPost)
