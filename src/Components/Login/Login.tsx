@@ -1,21 +1,34 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Button, Container, Paper} from "@mantine/core";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../ValidationRules/ReduxTextarea";
 import {requiredField} from "../../ValidationRules/validation";
-
-export const Login = () => {
-    const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
-    }
-  return <ReduxLoginForm onSubmit={onSubmit}/>
-}
+import {connect} from "react-redux";
+import {loginTC} from "../../redux/auth-reducer";
+import {Navigate} from "react-router-dom";
+import {AppStateType} from "../../redux/store";
 
 
 type FormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
+}
+type mapDispatchToPropsType = {
+    loginTC: (email: string, password: string, rememberMe: boolean) => void
+}
+type mapStateToPropsType = {
+    isAuth: boolean
+}
+
+const Login: FC<mapDispatchToPropsType & mapStateToPropsType> = ({loginTC, isAuth}) => {
+    const onSubmit = (formData: FormDataType) => {
+
+        loginTC(formData.email, formData.password, formData.rememberMe)
+        console.log(formData)
+    }
+    return isAuth ? <Navigate to={'/profile'}/> : <ReduxLoginForm onSubmit={onSubmit}/>
+    /*return <ReduxLoginForm onSubmit={onSubmit}/>*/
 }
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
@@ -25,9 +38,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <form onSubmit={props.handleSubmit}>
                     <div>
                         <Field
-                            placeholder={'Login'}
+                            placeholder={'Email'}
                             validate={[requiredField]}
-                            name={'login'}
+                            name={'email'}
                             component={Input}
                         />
                     </div>
@@ -35,6 +48,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                         <Field
                             placeholder={'Password'}
                             validate={[requiredField]}
+                            type={'password'}
                             name={'password'}
                             component={Input}/>
                     </div>
@@ -56,4 +70,5 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
 const ReduxLoginForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
-
+const mapStateToProps = (state: AppStateType) => ({isAuth: state.auth.isAuth})
+export default connect(mapStateToProps, {loginTC})(Login)

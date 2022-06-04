@@ -9,7 +9,7 @@ import IsAuthRedirectDialogsContainerHOC from "./Components/Dialogs/DialogsConta
 import IsAuthRedirectUsersContainerHOC from "./Components/Users/UsersContainer";
 import IsAuthRedirectPageProfileContainerHOC from "./Components/PageProfile/PageProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderCONTAINER";
-import {Login} from "./Components/Login/Login";
+import LoginContainer from "./Components/Login/Login";
 
 
 
@@ -36,7 +36,7 @@ const App= () => {
                       <Route path={'/news'} element={<News/>}/>
                       <Route path={'/music'} element={<Music/>}/>
                       <Route path={'/settings'} element={<Settings/>}/>
-                      <Route path={'/login'} element={<Login/>}/>
+                      <Route path={'/login'} element={<LoginContainer/>}/>
                   </Routes>
               </div>
           </div>
