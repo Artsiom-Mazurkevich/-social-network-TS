@@ -5,6 +5,8 @@ import Message from "./Message/Message";
 import {dialogsDataType, messagesType} from "../../redux/dialogs-reducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Button} from "@mantine/core";
+import {Textarea} from "../../ValidationRules/ReduxTextarea";
+import {maxLengthCreator, requiredField} from "../../ValidationRules/validation";
 
 
 type DialogsType = {
@@ -48,12 +50,16 @@ type FormDataType = {
     messageBody: string
 }
 
-
+const ml100 = maxLengthCreator(100)
 const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={'textarea'} name={'messageBody'} placeholder={'Enter your message'} />
+                <Field component={Textarea}
+                       validate={[requiredField,  ml100]}
+                       name={'messageBody'}
+                       placeholder={'Enter your message'}
+                />
             </div>
             <div>
                 <Button type={'submit'}>Send</Button>
