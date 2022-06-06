@@ -71,3 +71,6 @@ export const logoutTC = (): ActionThunk => (dispatch: DispatchThunk) => {
         }
     })
 }
+const sdf = () => {
+  
+}
