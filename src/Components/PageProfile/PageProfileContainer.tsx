@@ -10,7 +10,7 @@ import {compose} from "redux";
 
 
 type WithRouterType<T extends string> = { location: Location, params: Readonly<Params<T>> }
-type mapStatePropsType = { profile: ProfileType | null, isAuth: boolean, status: string }
+type mapStatePropsType = { profile: ProfileType | null, isAuth: boolean, status: string, authorizedUserid: any}
 type mapDispatchPropsType = {
     getUserProfile: (userId: string) => void
     getStatusThunk: (userId: string) => void
@@ -40,10 +40,14 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
     componentDidMount() {
         let userID = this.props.navigation.params.userID
         if (!userID) {
-            userID = "23597"
+            userID = this.props.authorizedUserid
         }
-        this.props.getUserProfile(userID)
-        this.props.getStatusThunk(userID)
+        if (typeof userID === "string") {
+            this.props.getUserProfile(userID)
+        }
+        if (typeof userID === "string") {
+            this.props.getStatusThunk(userID)
+        }
     }
 
     render() {
@@ -59,6 +63,8 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => ({
     profile: state.profilePage.profile,
     isAuth: state.auth.isAuth,
     status: state.profilePage.status,
+    authorizedUserid: state.auth.id,
+
 })
 
 // export default isAuthRedirectHoc (connect(mapStateToProps, {getUserProfile})(WithRouterContainer))
