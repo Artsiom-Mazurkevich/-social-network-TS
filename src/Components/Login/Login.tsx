@@ -7,12 +7,14 @@ import {connect} from "react-redux";
 import {loginTC} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import {AppStateType} from "../../redux/store";
+import s from '../../ValidationRules/stylesFormControl.module.css';
 
 
 type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    error: string
 }
 type mapDispatchToPropsType = {
     loginTC: (email: string, password: string, rememberMe: boolean) => void
@@ -59,6 +61,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                             placeholder={'rememberMe'}
                             component={Input}/>
                     </div>
+                    {props.error && <div className={s.formSummaryError}>{props.error}</div>}
                     <div>
                         <Button type={'submit'} fullWidth>login</Button>
                     </div>
