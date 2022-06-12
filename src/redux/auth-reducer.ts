@@ -43,7 +43,7 @@ type DispatchThunk = ThunkDispatch <AppStateType, unknown, ActionType>
 
 
 export const getAuthUserDataThunkCreator = (): ActionThunk => (dispatch: DispatchThunk) => {
-    authAPI.me().then(response => {
+   return authAPI.me().then(response => {
         if (response.data.resultCode === 0) {
             let data = response.data.data
             dispatch(setAuthUserData({id: data.id, email: data.email, login: data.login, isAuth: true}))

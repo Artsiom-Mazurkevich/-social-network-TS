@@ -40,6 +40,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <form onSubmit={props.handleSubmit}>
                     <div>
                         <Field
+                            style={{backgroundColor: 'red', border: '2px solid blue'}}
                             placeholder={'Email'}
                             validate={[requiredField]}
                             name={'email'}
