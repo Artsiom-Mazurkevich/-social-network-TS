@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
-import {StateUsersType, UsersType} from "../../redux/users-reduser";
+import {StateUsersType, UserType} from "../../redux/users-reduser";
 import axios from "axios";
 
 
 export type UsersPropsType = {
-    items: Array<UsersType>
+    items: Array<UserType>
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: Array<UsersType>) => void
+    setUsers: (users: Array<UserType>) => void
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void

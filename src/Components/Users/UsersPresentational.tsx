@@ -1,6 +1,6 @@
 import React from 'react';
 import {Pagination} from "@mantine/core";
-import {UsersType} from "../../redux/users-reduser";
+import {UserType} from "../../redux/users-reduser";
 import DefaultImage from '../../images/cat-avatar.d04271ed.gif'
 import {NavLink} from "react-router-dom";
 import s from './Users.module.css';
@@ -8,7 +8,7 @@ import {Button} from "@mantine/core";
 
 
 export type propsType = {
-    items: Array<UsersType>
+    items: Array<UserType>
     pageSize: number
     totalCount: number
     currentPage: number

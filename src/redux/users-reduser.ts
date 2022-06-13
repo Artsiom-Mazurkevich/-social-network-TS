@@ -2,7 +2,7 @@ import {UsersAPI} from "../api/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./store";
 
-export type UsersType = {
+export type UserType = {
     followed: boolean
     id: number
     name: string
@@ -11,7 +11,7 @@ export type UsersType = {
     uniqueUrlName: null | string
 }
 export type StateUsersType = {
-    items: Array<UsersType>
+    items: Array<UserType>
     pageSize: number
     totalCount: number
     currentPage: number
@@ -71,7 +71,7 @@ type ActionsTypes = ReturnType<typeof followAC>
 
 export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
 export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
-export const setUsersAC = (users: Array<UsersType>) => ({type: 'SET_USERS', items: users} as const)
+export const setUsersAC = (users: Array<UserType>) => ({type: 'SET_USERS', items: users} as const)
 export const setPageAC = (pageNumber: number) => ({type: 'SET_CURRENT_PAGE', pageNumber} as const)
 export const setUsersTotalCountAC = (totalCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', totalCount} as const)
 export const toggleIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE_FETCHING', isFetching} as const)
