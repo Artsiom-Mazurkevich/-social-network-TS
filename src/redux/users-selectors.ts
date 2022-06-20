@@ -4,6 +4,11 @@ export const getUsersFromState = (state: AppStateType) => {
     return state.usersPage.items
 }
 
+// export const getUsers = createSelector(getUsersFromState, (users) => {
+//
+// })
+
+
 export const getPageSize = (state: AppStateType) => {
     return state.usersPage.pageSize
 }
