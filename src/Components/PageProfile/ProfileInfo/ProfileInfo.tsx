@@ -2,7 +2,6 @@ import React, {FC} from 'react';
 import s from './ProfileInfo.module.css';
 import {ProfileType} from "../../../redux/profile-reducer";
 import DefaultAvatar from '../../../images/cat-avatar.d04271ed.gif'
-import {ProfileStatus} from "./ProfileStatus";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 
