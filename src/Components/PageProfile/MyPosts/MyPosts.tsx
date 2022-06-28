@@ -11,30 +11,33 @@ type myPostsPropsType = {
     posts: postsDataType[]
 }
 
-export const MyPosts: FC<myPostsPropsType> = ({addPost, posts}) => {
+export class MyPosts extends React.PureComponent<myPostsPropsType> {
+    render() {
+        let {addPost, posts} = this.props;
 
-    let PostsElements = posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likesCount}/>);
+        let PostsElements = posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likesCount}/>);
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
-    const onAddPost = (values: FormDataType) => {
+        let newPostElement = React.createRef<HTMLTextAreaElement>()
+        const onAddPost = (values: FormDataType) => {
 
-        addPost(values.postBody)
-    }
+            addPost(values.postBody)
+        }
 
-    return (
-        <div>
-            My posts
-            <FormPostRedux onSubmit={onAddPost}/>
-            {/*<div>
+        return (
+            <div>
+                My posts
+                <FormPostRedux onSubmit={onAddPost}/>
+                {/*<div>
                 <textarea ref={newPostElement} value={newPostText} onChange={onPostChange}/>
                 <button onClick={onAddPost}>Add post</button>
             </div>*/}
-            <div className={'posts'}>
-                {PostsElements}
+                <div className={'posts'}>
+                    {PostsElements}
+                </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
+}
 
 
 type FormDataType = {
