@@ -52,7 +52,7 @@ type ActionsType = ReturnType<typeof setUserProfile>
     | ReturnType<typeof deletePost>
 
 
-export const profileReducer = (state: profilePageType = initialStateForProfilePage, action: ActionsType):profilePageType => {
+export const profileReducer = (state: profilePageType = initialStateForProfilePage, action: ActionsType): profilePageType => {
     switch (action.type) {
         case 'ADD-POST':
             return {
@@ -76,18 +76,17 @@ export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as 
 export const deletePost = (postId: string) => ({type: 'DELETE-POST', postId} as const)
 
 
-export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-    UsersAPI.showUserProfile(userId).then(data => dispatch(setUserProfile(data)));
+export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+    const res = await UsersAPI.showUserProfile(userId)
+    dispatch(setUserProfile(res.data))
 }
 
-export const getStatusThunk = (userId: string) => (dispatch: Dispatch) => {
-  profileAPI.getStatus(userId).then(res => {
-      dispatch(setStatusAC(res.data))
-  })
+export const getStatusThunk = (userId: string) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.getStatus(userId)
+    dispatch(setStatusAC(res.data))
 }
 
-export const updateStatusThunk = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status).then(res => {
-        res.data.resultCode === 0 ? dispatch(setStatusAC(status)) : console.log('error, profile-reducer 95')
-    })
+export const updateStatusThunk = (status: string) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.updateStatus(status)
+    res.data.resultCode === 0 ? dispatch(setStatusAC(status)) : console.log('error, profile-reducer 90')
 }

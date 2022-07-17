@@ -33,11 +33,11 @@ const Login: FC<mapDispatchToPropsType & mapStateToPropsType> = ({loginTC, isAut
     /*return <ReduxLoginForm onSubmit={onSubmit}/>*/
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit,error}) => {
     return (
         <Container size={420} my={40}>
             <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-                <form onSubmit={props.handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <Field
                             style={{backgroundColor: 'red', border: '2px solid blue'}}
@@ -62,7 +62,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                             placeholder={'rememberMe'}
                             component={Input}/>
                     </div>
-                    {props.error && <div className={s.formSummaryError}>{props.error}</div>}
+                    {error && <div className={s.formSummaryError}>{error}</div>}
                     <div>
                         <Button type={'submit'} fullWidth>login</Button>
                     </div>
