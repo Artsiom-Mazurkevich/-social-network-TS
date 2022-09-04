@@ -40,7 +40,6 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
     componentDidMount() {
         let userID = this.props.navigation.params.userID
         if (!userID) {
-            debugger
             userID = this.props.authorizedUserid
         }
         if (typeof userID === "string") {

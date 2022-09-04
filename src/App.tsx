@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import './App.css';
 import Nav from "./Components/Nav/Nav";
 import {Route, Routes} from "react-router-dom";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
-import IsAuthRedirectDialogsContainerHOC from "./Components/Dialogs/DialogsContainer";
+// import IsAuthRedirectDialogsContainerHOC from "./Components/Dialogs/DialogsContainer";
 import IsAuthRedirectUsersContainerHOC from "./Components/Users/UsersContainer";
-import IsAuthRedirectPageProfileContainerHOC from "./Components/PageProfile/PageProfileContainer";
+// import IsAuthRedirectPageProfileContainerHOC from "./Components/PageProfile/PageProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderCONTAINER";
 import LoginContainer from "./Components/Login/Login";
 import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/store";
 import {Loader} from "@mantine/core";
+
+const IsAuthRedirectDialogsContainerHOC = React.lazy(() => import("./Components/Dialogs/DialogsContainer"))
+const IsAuthRedirectPageProfileContainerHOC = React.lazy(() => import("./Components/PageProfile/PageProfileContainer"))
 
 
 class App extends React.Component <{ initializeApp: () => void, initialized: boolean }> {
@@ -29,11 +32,10 @@ class App extends React.Component <{ initializeApp: () => void, initialized: boo
                     <Nav/>
                     <div className={'profile'}>
                         <Routes>
-                            <Route path={'/dialogs/*'}
-                                   element={
-                                       <IsAuthRedirectDialogsContainerHOC/>
-                                   }/>
-                            <Route path={'/profile'} element={<IsAuthRedirectPageProfileContainerHOC/>}/>
+                            <Route path={'/dialogs/*'} element={
+                                <Suspense fallback={<div>Loading...</div>}><IsAuthRedirectDialogsContainerHOC/></Suspense>}/>
+                            <Route path={'/profile'} element={
+                                <Suspense fallback={<div>Loading...</div>}><IsAuthRedirectPageProfileContainerHOC/></Suspense>}/>
                             <Route path={'/profile/:userID'} element={<IsAuthRedirectPageProfileContainerHOC/>}/>
                             <Route path={'/users'} element={<IsAuthRedirectUsersContainerHOC/>}/>
                             <Route path={'/news'} element={<News/>}/>
