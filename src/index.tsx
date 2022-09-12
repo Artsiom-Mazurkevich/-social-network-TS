@@ -10,6 +10,9 @@ import {Provider} from "react-redux";
 ReactDOM.render(
     /*<React.StrictMode>*/
     //check
+    //checkkkk
+    //checkkk
+    //checkk
         <BrowserRouter>
             <Provider store={store}>
                 <App/>
