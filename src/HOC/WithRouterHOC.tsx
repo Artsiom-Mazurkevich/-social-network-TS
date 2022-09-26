@@ -15,3 +15,18 @@ const WithRouterHOC = (Component: ComponentType<any>) => {
     }
     return WrapperComponentWithRouter
 }
+
+// const WithRouterHOC_New = (Component: React.ComponentClass) => {
+//     const WrapperComponentWithRouter = (props: any) => {
+//         let location = useLocation();
+//         let navigate = useNavigate();
+//         let params = useParams();
+//         return (
+//             <Component
+//                 {...props}
+//                 router={{ location, navigate, params }}
+//             />
+//         )
+//     }
+//     return WrapperComponentWithRouter
+// }

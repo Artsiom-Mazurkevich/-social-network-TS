@@ -1,13 +1,11 @@
-import React, { Suspense } from 'react';
+import React, {Suspense} from 'react';
 import './App.css';
 import Nav from "./Components/Nav/Nav";
 import {Route, Routes} from "react-router-dom";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
-// import IsAuthRedirectDialogsContainerHOC from "./Components/Dialogs/DialogsContainer";
 import IsAuthRedirectUsersContainerHOC from "./Components/Users/UsersContainer";
-// import IsAuthRedirectPageProfileContainerHOC from "./Components/PageProfile/PageProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderCONTAINER";
 import LoginContainer from "./Components/Login/Login";
 import {connect} from "react-redux";
@@ -26,27 +24,30 @@ class App extends React.Component <{ initializeApp: () => void, initialized: boo
     }
 
     render() {
-        return !this.props.initialized ? <Loader variant="dots"/> : (<div className={'app-wrapper'}>
-                <HeaderContainer/>
-                <div className={'app-wrapper-content'}>
-                    <Nav/>
-                    <div className={'profile'}>
-                        <Routes>
-                            <Route path={'/dialogs/*'} element={
-                                <Suspense fallback={<div>Loading...</div>}><IsAuthRedirectDialogsContainerHOC/></Suspense>}/>
-                            <Route path={'/profile'} element={
-                                <Suspense fallback={<div>Loading...</div>}><IsAuthRedirectPageProfileContainerHOC/></Suspense>}/>
-                            <Route path={'/profile/:userID'} element={<IsAuthRedirectPageProfileContainerHOC/>}/>
-                            <Route path={'/users'} element={<IsAuthRedirectUsersContainerHOC/>}/>
-                            <Route path={'/news'} element={<News/>}/>
-                            <Route path={'/music'} element={<Music/>}/>
-                            <Route path={'/settings'} element={<Settings/>}/>
-                            <Route path={'/login'} element={<LoginContainer/>}/>
-                        </Routes>
+        return !this.props.initialized
+            ? <Loader variant="dots"/>
+            : (<div className={'app-wrapper'}>
+                    <HeaderContainer/>
+                    <div className={'app-wrapper-content'}>
+                        <Nav/>
+                        <div className={'profile'}>
+                            <Routes>
+                                <Route path={'/dialogs/*'} element={
+                                    <Suspense fallback={
+                                        <div>Loading...</div>}><IsAuthRedirectDialogsContainerHOC/></Suspense>}/>
+                                <Route path={'/profile'} element={
+                                    <Suspense fallback={<div>Loading...</div>}><IsAuthRedirectPageProfileContainerHOC/></Suspense>}/>
+                                <Route path={'/profile/:userID'} element={<IsAuthRedirectPageProfileContainerHOC/>}/>
+                                <Route path={'/users'} element={<IsAuthRedirectUsersContainerHOC/>}/>
+                                <Route path={'/news'} element={<News/>}/>
+                                <Route path={'/music'} element={<Music/>}/>
+                                <Route path={'/settings'} element={<Settings/>}/>
+                                <Route path={'/login'} element={<LoginContainer/>}/>
+                            </Routes>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
     }
 }
 

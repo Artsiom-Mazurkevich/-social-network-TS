@@ -10,7 +10,7 @@ import {compose} from "redux";
 
 
 type WithRouterType<T extends string> = { location: Location, params: Readonly<Params<T>> }
-type mapStatePropsType = { profile: ProfileType | null, isAuth: boolean, status: string, authorizedUserid: any}
+type mapStatePropsType = { profile: ProfileType | null, isAuth: boolean, status: string, authorizedUserid: any }
 type mapDispatchPropsType = {
     getUserProfile: (userId: string) => void
     getStatusThunk: (userId: string) => void
@@ -51,9 +51,12 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
     }
 
     render() {
-        return <div className={s.profile}>
-                <PageProfile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatusThunk}/>
+        return (
+            <div className={s.profile}>
+                <PageProfile profile={this.props.profile} status={this.props.status}
+                             updateStatus={this.props.updateStatusThunk}/>
             </div>
+        )
     };
 }
 

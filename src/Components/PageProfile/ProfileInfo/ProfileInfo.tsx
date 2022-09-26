@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css';
 import {ProfileType} from "../../../redux/profile-reducer";
 import DefaultAvatar from '../../../images/cat-avatar.d04271ed.gif'
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
+import {Loader} from "@mantine/core";
 
 
 type ProfileInfoPropsType = {
@@ -13,45 +14,25 @@ type ProfileInfoPropsType = {
 
 
 const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) => {
+    console.log(profile)
 
-    return !profile
-        ?
+    if (!profile) {
+        return <Loader/>
+    }
+    return <>
         <div className={s.wall}>
             <img src={'https://stoqk.com/wp-content/uploads/2017/03/Sea-Beach-Wallpaper-HD.jpg'}/>
-            <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
         </div>
-        :
-        <>
-            <div className={s.wall}>
-                <img src={'https://stoqk.com/wp-content/uploads/2017/03/Sea-Beach-Wallpaper-HD.jpg'}/>
-            </div>
+        <div>
             <div>
-                <div>
-                    <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
-                </div>
-                <img src={profile.photos.small !== null ? profile.photos.small : DefaultAvatar} alt="avatar" width={45}/>
-                <div>About Me: {profile.aboutMe}</div>
-                <p>Name: {profile.fullName}</p>
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
-        </>
-
-    /*if (!profile) {
-        return <div className={s.wall}>
-            <img src={'https://stoqk.com/wp-content/uploads/2017/03/Sea-Beach-Wallpaper-HD.jpg'}/>
+            <img src={profile.photos.small || DefaultAvatar} alt="avatar"
+                 width={45}/>
+            <div>About Me: {profile.aboutMe}</div>
+            <p>Name: {profile.fullName}</p>
         </div>
-    }
-    return (
-        <>
-            <div className={s.wall}>
-                <img src={'https://stoqk.com/wp-content/uploads/2017/03/Sea-Beach-Wallpaper-HD.jpg'}/>
-            </div>
-            <div>
-                <img src={profile.photos.small !== null ? profile.photos.small : DefaultAvatar} alt="avatar" width={45}/>
-                <div>About Me: {profile.aboutMe}</div>
-                <p>Name: {profile.fullName}</p>
-            </div>
-        </>
-    );*/
+    </>
 };
 
 export default ProfileInfo;
