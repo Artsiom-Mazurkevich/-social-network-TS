@@ -35,11 +35,11 @@ export const UsersAPI = {
             }
         })
     },
-    showUserProfile(userId: string) {
-        console.warn('Obsolete method. Please use profileAPI Object')
-        return profileAPI.showUserProfile(userId)
-        //return instance.get(`profile/${userId}`).then(response => response.data)
-    }
+    // showUserProfile(userId: string) {
+    //     console.warn('Obsolete method. Please use profileAPI Object')
+    //     return profileAPI.showUserProfile(userId)
+    //     //return instance.get(`profile/${userId}`).then(response => response.data)
+    // }
 }
 
 export const profileAPI = {

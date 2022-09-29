@@ -77,8 +77,8 @@ export const deletePost = (postId: string) => ({type: 'DELETE-POST', postId} as 
 
 
 export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
-    const res = await UsersAPI.showUserProfile(userId)
-    dispatch(setUserProfile(res.data))
+    const res = await profileAPI.showUserProfile(userId)
+    dispatch(setUserProfile(res))
 }
 
 export const getStatusThunk = (userId: string) => async (dispatch: Dispatch) => {
@@ -88,5 +88,5 @@ export const getStatusThunk = (userId: string) => async (dispatch: Dispatch) => 
 
 export const updateStatusThunk = (status: string) => async (dispatch: Dispatch) => {
     const res = await profileAPI.updateStatus(status)
-    res.data.resultCode === 0 ? dispatch(setStatusAC(status)) : console.log('error, profile-reducer 90')
+    res.data.resultCode === 0 ? dispatch(setStatusAC(status)) : console.warn('error, profile-reducer 90')
 }

@@ -6,9 +6,9 @@ import {Action} from "redux";
 
 
 export type DataAuthType = {
-    id: number | null
-    email: string | null
-    login: string | null
+    id: number
+    email: string
+    login: string
     isAuth: boolean
 }
 
@@ -16,7 +16,7 @@ export type DataAuthType = {
 type ActionType = ReturnType<typeof setAuthUserData> | Action<'STOP_SUBMIT'>
 
 const initialState: DataAuthType = {
-    id: null,
+    id: 0,
     email: '',
     login: '',
     isAuth: false
@@ -46,7 +46,7 @@ type DispatchThunk = ThunkDispatch<AppStateType, unknown, ActionType>
 export const getAuthUserDataThunkCreator = (): ActionThunk => async (dispatch: DispatchThunk) => {
     const response = await authAPI.me();
     if (response.data.resultCode === 0) {
-        let data = response.data.data
+        const data = response.data.data
         dispatch(setAuthUserData({id: data.id, email: data.email, login: data.login, isAuth: true}))
     }
 }
@@ -64,7 +64,7 @@ export const logoutTC = (): ActionThunk => (dispatch: DispatchThunk) => {
     authAPI.logout()
         .then(response => {
         if (response.data.resultCode === 0) {
-            dispatch(setAuthUserData({email: null, login: null, id: null, isAuth: false}))
+            dispatch(setAuthUserData({email: '', login: '', id: 0, isAuth: false}))
         }
     })
 }

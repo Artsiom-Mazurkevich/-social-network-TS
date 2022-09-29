@@ -1,19 +1,29 @@
-import React, {ComponentType} from "react";
+import React from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 
-const WithRouterHOC = (Component: ComponentType<any>) => {
-    const WrapperComponentWithRouter = (props: any) => {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
+// export const WithRouterHOC_ = <T extends any>(Component: React.ComponentType<T>) => {
+//     const WrapperComponent = (props: any) => {
+//         const location = useLocation();
+//         const navigate = useNavigate();
+//         const params = useParams();
+//         return (
+//             <Component {...props} router={{ location, navigate, params }}/>
+//         )
+//     }
+// }
+
+
+export function WithRouterHOC <T>(Component: React.ComponentType<T>) {
+    const WrapperComponent = (props: any) => {
+        const location = useLocation();
+        const navigate = useNavigate();
+        const params = useParams();
         return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
+            <Component {...props} router={{ location, navigate, params }}/>
         )
     }
-    return WrapperComponentWithRouter
+    return WrapperComponent
+    // return <WrapperComponent/>
 }
 
 // const WithRouterHOC_New = (Component: React.ComponentClass) => {

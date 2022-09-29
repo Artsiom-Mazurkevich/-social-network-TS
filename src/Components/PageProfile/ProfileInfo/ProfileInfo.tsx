@@ -21,14 +21,13 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) 
     }
     return <>
         <div className={s.wall}>
-            <img src={'https://stoqk.com/wp-content/uploads/2017/03/Sea-Beach-Wallpaper-HD.jpg'}/>
+            {/*<img src={'https://klike.net/uploads/posts/2019-06/1561526578_1.jpg'}/>*/}
         </div>
         <div>
             <div>
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
-            <img src={profile.photos.small || DefaultAvatar} alt="avatar"
-                 width={45}/>
+            <img src={profile.photos.small || DefaultAvatar} alt="avatar" width={45}/>
             <div>About Me: {profile.aboutMe}</div>
             <p>Name: {profile.fullName}</p>
         </div>

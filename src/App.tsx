@@ -37,7 +37,8 @@ class App extends React.Component <{ initializeApp: () => void, initialized: boo
                                         <div>Loading...</div>}><IsAuthRedirectDialogsContainerHOC/></Suspense>}/>
                                 <Route path={'/profile'} element={
                                     <Suspense fallback={<div>Loading...</div>}><IsAuthRedirectPageProfileContainerHOC/></Suspense>}/>
-                                <Route path={'/profile/:userID'} element={<IsAuthRedirectPageProfileContainerHOC/>}/>
+                                <Route path={'/profile/:userID'} element={
+                                    <Suspense fallback={<div>Loading...</div>}><IsAuthRedirectPageProfileContainerHOC/></Suspense>}/>
                                 <Route path={'/users'} element={<IsAuthRedirectUsersContainerHOC/>}/>
                                 <Route path={'/news'} element={<News/>}/>
                                 <Route path={'/music'} element={<Music/>}/>

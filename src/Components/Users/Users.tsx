@@ -19,7 +19,6 @@ export const Users: FC<UsersPropsType> = ({items, follow, unfollow, setUsers}) =
         const getUsers = () => {
             if (items.length === 0) {
                 axios.get<StateUsersType>('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                    debugger
                     setUsers(response.data.items)
                 })
             }
