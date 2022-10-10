@@ -1,4 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
+import {Input, Text, Title} from "@mantine/core";
 
 type PropsType = {
     status: string
@@ -24,18 +25,21 @@ export const ProfileStatusWithHooks = (props: PropsType) => {
     }
 
     return (!editMode
-        ?
-        <div style={{minHeight: '20px', width: '200px', backgroundColor: 'lightblue'}}>
-            <span onDoubleClick={() => {setEditMode(true)}}>{props.status || '-----'}</span>
-        </div>
-        :
-        <div style={{minHeight: '20px', width: '200px', backgroundColor: 'lightblue'}}>
-            <input onChange={onStatusChange}
-                   onBlur={() => {sendNewStatus()}}
-                   autoFocus type="text"
-                   value={status}
-            />
-        </div>)
+            ?
+            <div>
+                <Text underline color={props.status ? 'blue' : 'dimmed'} onDoubleClick={() => {
+                    setEditMode(true)
+                }}>{props.status || 'You have no status'}</Text>
+            </div>
+            :
+                <Input onChange={onStatusChange}
+                       style={{maxWidth: '400px'}}
+                       onBlur={() => {sendNewStatus()}}
+                       autoFocus
+                       type="text"
+                       value={status}
+                />
+    )
 
 }
 

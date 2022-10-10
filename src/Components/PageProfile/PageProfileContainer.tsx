@@ -37,29 +37,31 @@ type PageProfileContainerPropsType = mapStatePropsType & mapDispatchPropsType
 // }
 
 
-class PageProfileContainer extends React.Component<PageProfileContainerPropsType & {router:{location: Location, navigate: NavigateFunction, params: Readonly<Params<'userID'>>}}> {
+class PageProfileContainer extends React.Component<PageProfileContainerPropsType & {router:{location: Location, navigate: NavigateFunction, params: Readonly<Params<'userId'>>}}> {
 
     refreshPage () {
-        let userID = this.props.router.params.userID
-        if (!userID) {
-            userID = (this.props.authorizedUserId).toString()
-            if (!userID) this.props.router.navigate('/login')
+        let userId = this.props.router.params.userId
+        if (!userId) {
+            userId = (this.props.authorizedUserId).toString()
+            if (!userId) this.props.router.navigate('/login')
         }
-        this.props.getUserProfile(userID)
-        this.props.getStatusThunk(userID)
+        this.props.getUserProfile(userId)
+        this.props.getStatusThunk(userId)
     }
 
     componentDidMount() {
         this.refreshPage()
     }
-   componentDidUpdate(prevProps: Readonly<PageProfileContainerPropsType & { router: { location: Location; navigate: NavigateFunction; params: Readonly<Params<"userID">> } }>, prevState: Readonly<{}>, snapshot?: any) {
-        if (this.props.router.params.userID !== prevProps.router.params.userID) this.refreshPage()
+   componentDidUpdate(prevProps: Readonly<PageProfileContainerPropsType & { router: { location: Location; navigate: NavigateFunction; params: Readonly<Params<"userId">> } }>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.router.params.userId !== prevProps.router.params.userId) this.refreshPage()
    }
 
     render() {
         return (
             <div className={s.profile}>
-                <PageProfile profile={this.props.profile} status={this.props.status}
+                <PageProfile profile={this.props.profile}
+                             isOwner={!!this.props.router.params}
+                             status={this.props.status}
                              updateStatus={this.props.updateStatusThunk}/>
             </div>
         )
