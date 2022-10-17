@@ -60,7 +60,7 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
         return (
             <div className={s.profile}>
                 <PageProfile profile={this.props.profile}
-                             isOwner={!!this.props.router.params}
+                             isOwner={!this.props.router.params}
                              status={this.props.status}
                              updateStatus={this.props.updateStatusThunk}/>
             </div>

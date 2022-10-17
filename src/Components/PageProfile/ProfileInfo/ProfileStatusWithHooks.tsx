@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Input, Text, Title} from "@mantine/core";
+import {Input, Text} from "@mantine/core";
 
 type PropsType = {
     status: string
