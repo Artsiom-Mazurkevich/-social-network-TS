@@ -1,9 +1,8 @@
-import React, {FC} from 'react';
-import s from './ProfileInfo.module.css';
+import React, {ChangeEvent, FC} from 'react';
 import {ProfileType} from "../../../redux/profile-reducer";
 import DefaultAvatar from '../../../images/photo-1535713875002-d1d0cf377fde.avif'
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
-import {Avatar, Grid, Image, Indicator, Input, Loader, Text, Title} from "@mantine/core";
+import {Avatar, Indicator, Loader, Text, Title} from "@mantine/core";
 import {IconCamera} from "@tabler/icons";
 
 
@@ -12,24 +11,29 @@ type ProfileInfoPropsType = {
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
+    setProfilePhoto: (photo: any) => void
 }
 
 
-const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus, isOwner}) => {
+const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus, isOwner, setProfilePhoto}) => {
 
     if (!profile) {
         return <Loader/>
     }
-    console.log(isOwner)
+
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
+            setProfilePhoto(e.target.files[0])
+        }
+    }
 
     return <>
         <div style={{borderBottom: '1px solid lightGray', paddingBottom: '10px'}}>
             <div style={{display: 'flex'}}>
                 <div>
-                    {/*<Indicator label={<IconCamera size={25}/>}*/}
                     <Indicator
                         label={<label style={{cursor: 'pointer'}}><IconCamera size={25}/><input
-                            style={{display: 'none'}} type={'file'}/></label>}
+                            style={{display: 'none'}} onChange={onMainPhotoSelected} type={'file'}/></label>}
                         inline
                         disabled={!isOwner}
                         offset={18}
@@ -37,7 +41,7 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus, i
                         position="bottom-end"
                         color="gray" withBorder>
                         <Avatar radius={'lg'}
-                                src={profile.photos.small || DefaultAvatar}
+                                src={profile.photos?.small || DefaultAvatar}
                                 alt="avatar"
                                 size={200}/>
                     </Indicator>
@@ -46,8 +50,7 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus, i
                     <Title order={3}>{profile.fullName}</Title>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                     <Text mt={40} color={'dimmed'}>About {profile.aboutMe}</Text>
-                    <Text
-                        mt={5}>{profile.aboutMe || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aut dolorem dolorum expedita laborum nihil officiis ratione, recusandae repellendus soluta. A aut dolores, eos eveniet maiores obcaecati quam quisquam voluptate.'}</Text>
+                    <Text mt={5}>{profile.aboutMe || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'}</Text>
                 </div>
             </div>
         </div>

@@ -2,7 +2,13 @@ import React from 'react';
 import s from './PageProfile.module.css';
 import PageProfile from "./PageProfile";
 import {connect} from "react-redux";
-import {getStatusThunk, getUserProfile, ProfileType, updateStatusThunk} from "../../redux/profile-reducer";
+import {
+    getStatusThunk,
+    getUserProfile,
+    ProfileType,
+    setProfilePhoto,
+    updateStatusThunk
+} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
 import {NavigateFunction, Params} from "react-router-dom";
 import {isAuthRedirectHoc} from "../../HOC/IsAuthRedirectHOC";
@@ -16,6 +22,7 @@ type mapDispatchPropsType = {
     getUserProfile: (userId: string) => void
     getStatusThunk: (userId: string) => void
     updateStatusThunk: (status: string) => void
+    setProfilePhoto: (photo: any) => void
 }
 type PageProfileContainerPropsType = mapStatePropsType & mapDispatchPropsType
 
@@ -56,13 +63,16 @@ class PageProfileContainer extends React.Component<PageProfileContainerPropsType
         if (this.props.router.params.userId !== prevProps.router.params.userId) this.refreshPage()
    }
 
+
     render() {
         return (
             <div className={s.profile}>
                 <PageProfile profile={this.props.profile}
-                             isOwner={!this.props.router.params}
+                             isOwner={!this.props.router.params.userId}
                              status={this.props.status}
-                             updateStatus={this.props.updateStatusThunk}/>
+                             updateStatus={this.props.updateStatusThunk}
+                             setProfilePhoto={this.props.setProfilePhoto}
+                />
             </div>
         )
     };
@@ -81,4 +91,4 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => ({
 
 export default compose<React.ComponentType>(
     isAuthRedirectHoc,
-    connect(mapStateToProps, {getUserProfile, getStatusThunk, updateStatusThunk}), WithRouterHOC)(PageProfileContainer)
+    connect(mapStateToProps, {getUserProfile, getStatusThunk, updateStatusThunk, setProfilePhoto}), WithRouterHOC)(PageProfileContainer)

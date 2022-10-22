@@ -4,7 +4,7 @@ import {v1} from "uuid";
 
 export type profilePageType = {
     posts: postsDataType[]
-    profile: null | ProfileType
+    profile: ProfileType
     status: string
 }
 export type postsDataType = {
@@ -14,26 +14,26 @@ export type postsDataType = {
 }
 export type ContactsType = {
     facebook: string
-    website: null
+    website: string
     vk: string
     twitter: string
     instagram: string
-    youtube: null
+    youtube: string
     github: string
-    mainLink: null
+    mainLink: string
 }
 export type PhotosType = {
     small: string
     large: string
 }
 export type ProfileType = {
-    aboutMe: string
-    contacts: ContactsType
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: PhotosType
+    aboutMe?: string
+    contacts?: ContactsType
+    lookingForAJob?: boolean
+    lookingForAJobDescription?: string
+    fullName?: string
+    userId?: number
+    photos?: PhotosType
 }
 
 const initialStateForProfilePage: profilePageType = {
@@ -41,8 +41,28 @@ const initialStateForProfilePage: profilePageType = {
         {id: v1(), message: 'Hi, how are you?', likesCount: 20},
         {id: v1(), message: "It's my first post", likesCount: 20},
     ],
-    profile: null,
-    status: ''
+    profile: {
+        aboutMe: '',
+        contacts: {
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: '',
+        },
+        lookingForAJob: false,
+        lookingForAJobDescription: '',
+        fullName: '',
+        userId: 0,
+        photos: {
+            large: '',
+            small: ''
+        },
+    },
+    status: '',
 }
 
 
@@ -50,6 +70,7 @@ type ActionsType = ReturnType<typeof setUserProfile>
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof setStatusAC>
     | ReturnType<typeof deletePost>
+    | ReturnType<typeof setProfilePhotoAC>
 
 
 export const profileReducer = (state: profilePageType = initialStateForProfilePage, action: ActionsType): profilePageType => {
@@ -65,6 +86,8 @@ export const profileReducer = (state: profilePageType = initialStateForProfilePa
             return {...state, status: action.status}
         case "DELETE-POST":
             return {...state, posts: state.posts.filter(p => p.id !== action.postId)}
+        case "SET-PROFILE-PHOTO":
+            return {...state, profile:{...state.profile, photos: action.photos}}
         default:
             return state
     }
@@ -74,6 +97,7 @@ export const addPostAC = (newPostText: string) => ({type: 'ADD-POST', newPostTex
 export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
 export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
 export const deletePost = (postId: string) => ({type: 'DELETE-POST', postId} as const)
+export const setProfilePhotoAC = (photos: PhotosType) => ({type: 'SET-PROFILE-PHOTO', photos} as const)
 
 
 export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
@@ -89,4 +113,9 @@ export const getStatusThunk = (userId: string) => async (dispatch: Dispatch) => 
 export const updateStatusThunk = (status: string) => async (dispatch: Dispatch) => {
     const res = await profileAPI.updateStatus(status)
     res.data.resultCode === 0 ? dispatch(setStatusAC(status)) : console.warn('error, profile-reducer 90')
+}
+
+export const setProfilePhoto = (photo: any) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.setPhoto(photo);
+    dispatch(setProfilePhotoAC(res.data.data.photos))
 }
