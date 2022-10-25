@@ -27,7 +27,7 @@ export const ProfileStatusWithHooks = (props: PropsType) => {
     return (!editMode
             ?
             <div>
-                <Text underline color={props.status ? 'blue' : 'dimmed'} onDoubleClick={() => {
+                <Text color={props.status ? 'blue' : 'dimmed'} onDoubleClick={() => {
                     setEditMode(true)
                 }}>{props.status || 'You have no status'}</Text>
             </div>
