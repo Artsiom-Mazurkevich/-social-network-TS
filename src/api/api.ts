@@ -1,5 +1,6 @@
 import axios from "axios";
 import {StateUsersType} from "../redux/users-reduser";
+import {ProfileType} from "../redux/profile-reducer";
 
 
 
@@ -60,6 +61,9 @@ export const profileAPI = {
                 'Content-type': 'multipart/form-data'
             }
         })
+    },
+    updateProfile (profile: ProfileType) {
+        return instance.put('profile', profile)
     }
 }
 

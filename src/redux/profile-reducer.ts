@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {profileAPI, UsersAPI} from "../api/api";
 import {v1} from "uuid";
+import {AxiosResponse} from "axios";
 
 export type profilePageType = {
     posts: postsDataType[]
@@ -100,7 +101,7 @@ export const deletePost = (postId: string) => ({type: 'DELETE-POST', postId} as 
 export const setProfilePhotoAC = (photos: PhotosType) => ({type: 'SET-PROFILE-PHOTO', photos} as const)
 
 
-export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+export const getUserProfileThunk = (userId: string) => async (dispatch: Dispatch) => {
     const res = await profileAPI.showUserProfile(userId)
     dispatch(setUserProfile(res))
 }
@@ -115,7 +116,12 @@ export const updateStatusThunk = (status: string) => async (dispatch: Dispatch) 
     res.data.resultCode === 0 ? dispatch(setStatusAC(status)) : console.warn('error, profile-reducer 90')
 }
 
-export const setProfilePhoto = (photo: any) => async (dispatch: Dispatch) => {
+export const setProfilePhotoThunk = (photo: any) => async (dispatch: Dispatch) => {
     const res = await profileAPI.setPhoto(photo);
     dispatch(setProfilePhotoAC(res.data.data.photos))
+}
+
+export const updateProfileThunk = (profile: ProfileType) => async (dispatch: Dispatch) => {
+    const res: AxiosResponse<ProfileType> = await profileAPI.updateProfile(profile);
+    dispatch(setUserProfile(res.data))
 }

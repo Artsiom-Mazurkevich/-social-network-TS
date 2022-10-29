@@ -3,8 +3,7 @@ import {ProfileType} from "../../../redux/profile-reducer";
 import DefaultAvatar from '../../../images/photo-1535713875002-d1d0cf377fde.avif'
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 import {Avatar, Group, Indicator, Loader, Text, Title, Tooltip} from "@mantine/core";
-import {IconAt, IconBrandGithub, IconBrandInstagram, IconBrandVk, IconCamera} from "@tabler/icons";
-import {Link} from "react-router-dom";
+import {IconBrandGithub, IconBrandInstagram, IconBrandVk, IconCamera} from "@tabler/icons";
 
 
 type ProfileInfoPropsType = {
@@ -13,6 +12,7 @@ type ProfileInfoPropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     setProfilePhoto: (photo: any) => void
+    updateProfile: (profile: ProfileType) => void
 }
 
 const styleLink = {
@@ -87,8 +87,6 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus, i
                                              style={styleLink}/>
                         </Tooltip>
                     </Group>
-                    {/*<Text mt={40} color={'dimmed'}>About</Text>*/}
-                    {/*<Text mt={5}>{profile.aboutMe || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'}</Text>*/}
                 </div>
             </div>
         </div>

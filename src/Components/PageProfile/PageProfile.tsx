@@ -13,12 +13,13 @@ type PageProfilePropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     setProfilePhoto: (photo: any) => void
+    updateProfile: (profile: ProfileType) => void
 }
 
-const PageProfile: React.FC<PageProfilePropsType> = ({profile, status, updateStatus, isOwner,setProfilePhoto}) => {
+const PageProfile: React.FC<PageProfilePropsType> = ({profile, status, updateStatus, isOwner,setProfilePhoto, updateProfile}) => {
     return (
         <div className={s.profile}>
-            <ProfileInfo isOwner={isOwner} profile={profile} status={status} updateStatus={updateStatus} setProfilePhoto={setProfilePhoto}/>
+            <ProfileInfo isOwner={isOwner} profile={profile} status={status} updateStatus={updateStatus} setProfilePhoto={setProfilePhoto} updateProfile={updateProfile}/>
             <MyPostsContainerRR />
         </div>
     );
